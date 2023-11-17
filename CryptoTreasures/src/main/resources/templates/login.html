@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+
+</head>
+<body>
+<div class="login-background">
+  <div th:if="${session.loginError != null}" th:text="${session.loginError}" class="alert alert-danger"></div>
+  <form class="login-form" th:action="@{/user/login}" th:method="post">
+
+    <h2>Login Here</h2>
+    <div class="input-field">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="Email or Phone">
+    </div>
+    <div class="input-field">
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Password">
+    </div>
+    <button type="submit">Log In</button>
+  </form>
+</div>
+</body>
+</html>

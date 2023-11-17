@@ -1,0 +1,64 @@
+<!DOCTYPE html
+        >
+<html
+        xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+    <link rel="stylesheet" th:href="@{/css/create-article.css}">
+    <!-- fonts style -->
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css}" />
+    <!-- font awesome style -->
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <!-- responsive style -->
+    <link th:href="@{/css/responsive.css}" rel="stylesheet" />
+
+</head>
+<header th:replace="~{fragments/navbar}">
+
+</header>
+
+<body class="sub_page">
+
+
+    <form th:action="@{/article/create-article}" th:method="post"  enctype="multipart/form-data">
+        <!-- Заглавие -->
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <br><br>
+
+        <!-- Съдържание -->
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" rows="4" cols="50" required></textarea>
+        <br><br>
+
+        <label for="thumbnail">Thumbnail Image:</label>
+        <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required>
+        <br><br>
+
+        <!-- Категория -->
+        <label for="category">What you are going to write about?</label>
+        <select id="category" name="category" >
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Cryptocurrency</option>
+
+        </select>
+
+        <label></label>
+        <br><br>
+
+        <input type="submit" value="Upload article">
+    </form>
+
+</div>
+
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
+</body>
+
+</html>

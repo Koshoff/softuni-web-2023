@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #232323;
+    color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 50px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.container::before {
+    content: "";
+    display: block;
+    width: 150px;
+    height: 150px;
+    background-color: #ff5722;
+    border-radius: 50%;
+    position: absolute;
+    top: 50px;
+    left: 46%; /* Поставя кръгчето спрямо центъра на контейнера */
+    transform: translateX(-50%); /* Измества кръгчето наляво с половината от неговата широчина, за да го центрира */
+
+
+    animation: moveCircle 1.5s infinite alternate;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.custom-form.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+.btn {
+    background-color: #ff5722;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+@keyframes moveCircle {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(10px); }
+}
+

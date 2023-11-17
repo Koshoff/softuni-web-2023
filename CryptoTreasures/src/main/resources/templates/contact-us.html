@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head >
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/contact-us.css}" />
+
+</head>
+
+<header th:replace="~{fragments/navbar}">
+
+</header>
+
+<body>
+<div class="contact-form-container">
+  <form id="contact-form">
+    <h2>Свържете се с нас</h2>
+    <div class="form-group">
+      <label for="name">Име:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Имейл:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="message">Съобщение:</label>
+      <textarea id="message" name="message" required></textarea>
+    </div>
+    <button type="submit">Изпрати</button>
+  </form>
+</div>
+
+
+
+
+  <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+
+  <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
+</body>
+
+</html>

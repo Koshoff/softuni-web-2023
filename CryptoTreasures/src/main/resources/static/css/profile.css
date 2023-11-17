@@ -1,0 +1,78 @@
+/* Основни стилове за страницата */
+body.sub_page {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2; /* сив фон */
+    color: #333; /* сив текст */
+}
+
+.hero_area {
+    background-color: #ffa500; /* оранжев фон */
+    padding: 20px 0;
+    position: relative;
+}
+
+.header {
+    margin-bottom: 30px;
+    background-color: #333; /* тъмно сив фон */
+    color: #fff; /* бял текст */
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff; /* бял фон за контейнера */
+    box-shadow: 0 0 15px rgba(0,0,0,0.1); /* сянка около контейнера */
+}
+
+.profile-container h2 {
+    color: #ffa500; /* оранжев заглавен текст */
+    border-bottom: 2px solid #ffa500; /* оранжева черта под заглавието */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.user-details, .change-password {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="password"], input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* сива рамка около полето за въвеждане */
+}
+
+input[type="submit"] {
+    background-color: #0044cc; /* син фон на бутона */
+    color: #fff; /* бял текст на бутона */
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease; /* плавен преход на цветовете */
+}
+
+input[type="submit"]:hover {
+    background-color: #0033a0; /* тъмно син фон на бутона при навеждане */
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda; /* светло зелен фон за успешните съобщения */
+    color: #155724; /* тъмно зелен текст за успешните съобщения */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* светло червен фон за грешки */
+    color: #721c24; /* тъмно червен текст за грешки */
+}

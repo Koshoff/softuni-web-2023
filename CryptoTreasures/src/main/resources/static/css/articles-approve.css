@@ -1,0 +1,51 @@
+
+body {
+    padding-top: 450px; /* Увеличете тази стойност, ако навигационната лента е по-висока */
+    /* Останалите стилове на body */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* светлосив фон */
+    color: #333; /* тъмносив текст */
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background-color: #ffa500; /* оранжев фон */
+    color: white; /* бял текст */
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.article-card {
+    background-color: white;
+    border: 1px solid #ddd; /* сива граница */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* лека сянка */
+}
+
+.article-card h2 {
+    color: #333; /* тъмносив текст */
+}
+
+.article-card p {
+    color: #666; /* светлосив текст */
+}
+
+input[type="submit"] {
+    background-color: #0057b7; /* син фон */
+    color: white; /* бял текст */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #004a9f; /* по-тъмносин при hover */
+}

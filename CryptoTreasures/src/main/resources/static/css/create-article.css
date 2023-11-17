@@ -1,0 +1,58 @@
+/* Стилове за общия фон на страницата */
+
+body {
+    padding-top: 150px; /* Увеличете тази стойност, ако навигационната лента е по-висока */
+    /* Останалите стилове на body */
+}
+.sub_page {
+    font-family: 'Arial', sans-serif; /* Примерен шрифт, можете да го промените */
+    background-color: #f5f5f5; /* Светъл фон за страницата */
+    padding: 0; /* Отстояние отгоре и отстрани на страницата */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Стилове за елементите във формата */
+.custom-form .form {
+    background-color: #ffffff; /* Бял фон за формата */
+    padding: 20px; /* Отстояние вътре в формата */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Сянка около формата */
+    border-radius: 8px; /* Закръглени ъгли на формата */
+}
+
+label {
+    display: block; /* Етикетите да се показват на нов ред */
+    margin-bottom: 5px; /* Малко разстояние между етикета и входния елемент */
+    font-weight: 600; /* По-дебел текст за етикетите */
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%; /* Елементите да заемат цялата ширина на родителския им елемент */
+    padding: 10px; /* Отстояние вътре в елементите */
+    margin-bottom: 20px; /* Разстояние между елементите на формата */
+    border: 1px solid #ccc; /* Рамка около елементите */
+    border-radius: 5px; /* Закръглени ъгли на елементите */
+}
+
+input[type="submit"] {
+    cursor: pointer; /* Курсорът да стане ръка при навлизане върху бутона */
+    background-color: #FF5733; /* Оранжев фон на бутона */
+    color: #ffffff; /* Бял текст на бутона */
+    padding: 10px 20px; /* Отстояние вътре в бутона */
+    font-size: 18px; /* Размер на текста на бутона */
+    border: none; /* Без рамка на бутона */
+    border-radius: 5px; /* Закръглени ъгли на бутона */
+    transition: background-color 0.3s, transform 0.3s; /* Гладък преход при промяна на фона и при натискане */
+}
+
+input[type="submit"]:hover {
+    background-color: #ff704d; /* По-светъл оранжев цвят при навлизане върху бутона */
+}
+
+input[type="submit"]:active {
+    transform: translateY(2px); /* Ефект при натискане на бутона */
+}

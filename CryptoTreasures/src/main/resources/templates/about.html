@@ -1,0 +1,99 @@
+<!DOCTYPE html
+        >
+<html
+        xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head >
+  <link rel="stylesheet" th:href="@{/css/createarticle.css}">
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+
+  <!-- fonts style -->
+  <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap}" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css}" />
+
+  <!-- font awesome style -->
+  <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link th:href="@{/css/responsive.css}" rel="stylesheet" />
+
+
+
+</head>
+
+<body class="sub_page">
+
+
+
+    <!-- header section strats -->
+    <header
+    th:replace="~{fragments/navbar}"
+    >
+
+    </header>
+    <!-- end header section -->
+  </div>
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container  ">
+      <div class="heading_container heading_center">
+        <h2>
+          About <span>Us</span>
+        </h2>
+        <p>
+          Magni quod blanditiis non minus sed aut voluptatum illum quisquam aspernatur ullam vel beatae rerum ipsum voluptatibus
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img th:src="@{/images/about-img.png}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <h3>
+              We Are Finexo
+            </h3>
+            <p>
+              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
+              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
+              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
+              the middle of text. All
+            </p>
+            <p>
+              Molestiae odio earum non qui cumque provident voluptates, repellendus exercitationem, possimus at iste corrupti officiis unde alias eius ducimus reiciendis soluta eveniet. Nobis ullam ab omnis quasi expedita.
+            </p>
+            <a href="">
+              Read More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- jQery -->
+  <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+  <!-- popper js -->
+  <script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+  <!-- owl slider -->
+  <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+  </script>
+  <!-- custom js -->
+  <script type="text/javascript" th:src="@{/js/custom.js}">
+
+  </script>
+
+</body>
+
+</html>

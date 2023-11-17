@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin-panel.css}">
+</head>
+
+<header th:replace="~{fragments/navbar}">
+
+</header>
+<body>
+<div class="admin-panel">
+    <h1>Admin Panel</h1>
+
+    <!-- Списък с потребители -->
+    <section class="users-section">
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Примерен ред за потребител -->
+            <tr th:each="user: ${users}" th:if="${user.role.name() == 'USER' and user.role.name() != 'BANNED'}">
+                <td th:text="${user.username}">Иван</td>
+                <td th:text="${user.email}">ivan@example.com</td>
+                <td>
+                    <form th:action="@{/admin/ban-user}" th:method="POST">
+                        <input type="hidden" th:value="${user.id}" name="id">
+                        <button type="submit" class="ban-btn">Ban</button>
+                        <div th:if="${message}" class="alert alert-success" role="alert">
+                            <p th:text="${message}">Default message</p>
+                        </div>
+                    </form>
+                    <form th:action="@{/admin/make-moderator}" th:method="POST">
+                        <input type="hidden" th:value="${user.id}" name="id">
+                        <button type="submit" class="moderator-btn">Make moderator</button>
+                    </form>
+
+
+                </td>
+            </tr>
+            <!-- ... -->
+            </tbody>
+        </table>
+    </section>
+
+    <section class="moderators-section">
+        <h2>Moderators</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="moderator : ${moderators}">
+                <td th:text="${moderator.username}">Име на модератор</td>
+                <td th:text="${moderator.email}">email@example.com</td>
+                <td>
+                    <form th:action="@{/admin/remove-moderator}" th:method="POST">
+                        <input type="hidden" th:value="${moderator.id}" name="id">
+                        <button class="remove-moderator-btn">Remove moderator</button>
+                    </form>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="banned-users-section">
+        <h2>Banned Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr th:each="bannedUser : ${bannedUsers}">
+                <td th:text="${bannedUser.username}">Username</td>
+                <td th:text="${bannedUser.email}">email@example.com</td>
+                <td>
+                    <form th:action="@{/admin/unban-user}" th:method="POST">
+                        <input type="hidden" th:value="${bannedUser.id}" name="id">
+                        <button class="unban-btn">Remove ban</button>
+                    </form>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Добавяне на категории -->
+    <section class="categories-section">
+        <h2>Add category</h2>
+        <form th:action="@{/admin/add-category}" th:method="POST">
+            <input type="text" placeholder="Category name" required>
+            <textarea name="description" placeholder="Description"></textarea>
+            <button type="submit">Add</button>
+        </form>
+    </section>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
+
+
+
+</script>
+</body>
+</html>

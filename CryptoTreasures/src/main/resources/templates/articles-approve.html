@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles to approve</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/articles-approve.css}" />
+</head>
+<header th:replace="~{fragments/navbar}">
+
+</header>
+<body>
+<h1>Waiting articles</h1>
+<div th:if="${not #lists.isEmpty(unapprovedArticles)}">
+    <div th:each="article : ${unapprovedArticles}">
+        <div th:if="${!article.approved}">
+            <h2 th:text="${article.title}">Заглавие на статията</h2>
+            <p th:text="${article.content}">Кратко описание...</p>
+            <form th:action="@{/article/approve/{id}(id=${article.id})}" th:method="post">
+                <input type="submit" value="Одобри">
+            </form>
+        </div>
+    </div>
+</div>
+<div th:if="${#lists.isEmpty(unapprovedArticles)}">
+    <p>There are no articles to inspect</p>
+</div>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
+</body>
+</html>

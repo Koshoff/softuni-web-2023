@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <script th:src="@{/js/modal.js}"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="articleModal">
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalContent"></p>
+        <div class="comment-form">
+            <h3>Leave a comment</h3>
+            <form id="commentFrom" action="#" th:method="POST" >
+                <input type="hidden" id="articleId" name="articleId" value="" />
+                <div class="form-group">
+                    <label for="commentContent">Comment:</label>
+                    <textarea id="commentContent" name="content" rows="4" required></textarea>
+                </div>
+                <button type="submit">Comment</button>
+
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
