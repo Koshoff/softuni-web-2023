@@ -1,11 +1,13 @@
 package com.example.CryptoTreasures.service;
 
+import com.example.CryptoTreasures.model.dto.UserDTO;
 import com.example.CryptoTreasures.model.entity.Article;
 import com.example.CryptoTreasures.model.entity.User;
 import com.example.CryptoTreasures.model.ChangePasswordModel;
 import com.example.CryptoTreasures.model.UserRegistrationModel;
 import com.example.CryptoTreasures.model.enums.Role;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +17,7 @@ public interface UserService {
 
     boolean changePassword(ChangePasswordModel changePasswordModel);
 
-    //TODO : да заместя USER с DTO
+
     List<User> findUserByRole(Role role);
 
     List<User> findAllUsers();
@@ -26,6 +28,9 @@ public interface UserService {
     void makeModerator(Long id);
     void removeModerator(Long id);
 
-    Optional<User> findByUsername(String username);
+    UserDTO findByUsername(String username);
+
+
+    void promoteUsersToModerators() ;
 
 }

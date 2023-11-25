@@ -10,10 +10,8 @@ public class Rating extends BaseEntity {
     @Column(nullable = false)
     private Boolean rating;
     @ManyToOne
-    @JoinColumn(name="rater_id")
     private User rater;
     @ManyToOne
-    @JoinColumn(name="article_id")
     private Article article;
 
     public Rating() {

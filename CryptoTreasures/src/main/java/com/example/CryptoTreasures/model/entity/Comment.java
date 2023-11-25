@@ -13,12 +13,21 @@ import java.time.LocalDate;
 public class Comment extends BaseEntity {
     @Column(nullable = false)
     private String content;
-
     private LocalDate publicationDate;
     @ManyToOne
     private Article article;
+    @ManyToOne
+    private User commentator;
 
     public Comment() {
+    }
+
+    public User getCommentator() {
+        return commentator;
+    }
+
+    public void setCommentator(User commentator) {
+        this.commentator = commentator;
     }
 
     public Article getArticle() {

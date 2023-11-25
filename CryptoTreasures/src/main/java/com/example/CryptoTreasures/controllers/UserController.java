@@ -1,6 +1,8 @@
 package com.example.CryptoTreasures.controllers;
 
 import com.example.CryptoTreasures.model.ChangePasswordModel;
+import com.example.CryptoTreasures.model.dto.ArticleDTO;
+import com.example.CryptoTreasures.model.dto.UserDTO;
 import com.example.CryptoTreasures.model.entity.Article;
 import com.example.CryptoTreasures.model.entity.User;
 import com.example.CryptoTreasures.service.ArticleService;
@@ -31,9 +33,9 @@ public class UserController {
     public ModelAndView profile(Principal principal){
         ModelAndView modelAndView = new ModelAndView("profile");
         String username = principal.getName();
-        User user = userService.findByUsername(username).orElse(null);
+        UserDTO user = userService.findByUsername(username);
         if(user != null) {
-            List<Article> articles = articleService.findByAuthor(user);
+            List<ArticleDTO> articles = articleService.findByAuthor(user);
             modelAndView.addObject("articles", articles);
         }
 

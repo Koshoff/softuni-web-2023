@@ -1,38 +1,31 @@
 package com.example.CryptoTreasures.restcontrollers;
 
-import com.example.CryptoTreasures.model.entity.Article;
+import com.example.CryptoTreasures.model.dto.RatingDTO;
 import com.example.CryptoTreasures.model.entity.Rating;
-import com.example.CryptoTreasures.model.entity.User;
-import com.example.CryptoTreasures.service.ArticleService;
 import com.example.CryptoTreasures.service.RatingService;
-import com.example.CryptoTreasures.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+
 @RestController
-@RequestMapping("/api/rate")
 public class RatingRestController {
 
-    private final UserService userService;
-    private final ArticleService articleService;
     private final RatingService ratingService;
 
-    public RatingRestController(UserService userService, ArticleService articleService, RatingService ratingService) {
-        this.userService = userService;
-        this.articleService = articleService;
+    public RatingRestController(RatingService ratingService) {
         this.ratingService = ratingService;
     }
 
-    @PostMapping("/article/{articleId}/like")
-    @ResponseBody
-    public ResponseEntity<Rating> vote(@PathVariable(name = "articleId") Long articleId, Principal principal) {
-        String username = principal.getName();
-        ratingService.likeArticle(articleId, username);
-        return ResponseEntity.ok().build();
+
+    @PostMapping("/like-article/{articleId}")
+    public ResponseEntity<RatingDTO> likeArticle(@PathVariable Long articleId, Principal principal) {
+            ratingService.likeArticle(articleId, principal.getName());
+            return ResponseEntity.ok().build();
+
 
     }
-
-
 }

@@ -5,5 +5,5 @@ import com.example.CryptoTreasures.model.entity.User;
 
 public interface CommentService {
 
-    void addCommentToArticle(Long articleId, CommentDTO commentDTO, User author);
+   void saveComment(CommentDTO commentDTO);
 }

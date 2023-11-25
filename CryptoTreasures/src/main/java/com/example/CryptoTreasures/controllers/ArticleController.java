@@ -1,10 +1,10 @@
 package com.example.CryptoTreasures.controllers;
 
-import com.example.CryptoTreasures.model.dto.CommentDTO;
+import com.example.CryptoTreasures.model.dto.ArticleDTO;
 import com.example.CryptoTreasures.model.entity.Article;
 import com.example.CryptoTreasures.model.entity.Category;
 import com.example.CryptoTreasures.model.AddArticleModel;
-import com.example.CryptoTreasures.model.entity.User;
+import com.example.CryptoTreasures.model.enums.ArticleStatus;
 import com.example.CryptoTreasures.repository.CategoryRepository;
 import com.example.CryptoTreasures.service.ArticleService;
 import com.example.CryptoTreasures.service.CategoryService;
@@ -19,9 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
+
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Controller
@@ -42,7 +42,7 @@ public class ArticleController {
 
     @GetMapping("/defi")
     public ModelAndView loadDefiArticles(@PageableDefault(size=2, sort = "id")Pageable pageable) {
-        Page<Article> defiArticles = articleService.getArticlesByCategory("DeFi", pageable);
+        Page<ArticleDTO> defiArticles = articleService.getArticlesByCategory("DeFi", pageable);
         ModelAndView model = new ModelAndView("defi");
         model.addObject("DeFiArticles", defiArticles);
         return model;
@@ -51,7 +51,7 @@ public class ArticleController {
 
     @GetMapping("/nft")
     public ModelAndView loadNFTArticles(@PageableDefault(size=10, sort="id")Pageable pageable) {
-        Page<Article> nftArticles = articleService.getArticlesByCategory("NFT", pageable);
+        Page<ArticleDTO> nftArticles = articleService.getArticlesByCategory("NFT", pageable);
         ModelAndView model = new ModelAndView("nft");
         model.addObject("NFTArticles", nftArticles);
         return model;
@@ -59,7 +59,7 @@ public class ArticleController {
 
     @GetMapping("/cryptocurrencies")
     public ModelAndView loadCryptocurrencyArticles(@PageableDefault(size=10, sort="id")Pageable pageable) {
-        Page<Article> cryptocurrencyArticles = articleService.getArticlesByCategory("Cryptocurrencies", pageable);
+        Page<ArticleDTO> cryptocurrencyArticles = articleService.getArticlesByCategory("Cryptocurrencies", pageable);
         ModelAndView model = new ModelAndView("cryptocurrencies");
         model.addObject("CryptocurrencyArticles", cryptocurrencyArticles);
         return model;
@@ -86,12 +86,12 @@ public class ArticleController {
         return new ModelAndView("about");
     }
 
-    @PostMapping("/{id}/comment")
-    public ModelAndView leaveComment(@PathVariable Long id, @ModelAttribute CommentDTO commentDTO, Principal principal) {
-        Optional<User> author = userService.findByUsername(principal.getName());
-        commentService.addCommentToArticle(id, commentDTO, author.orElse(null));
-        return new ModelAndView("redirect:/article/" + id);
+    @PostMapping("/delete-article/{articleId}")
+    public ModelAndView deleteArticle(@RequestParam("articleId") Long articleId) {
+        articleService.deleteArticle(articleId);
+        return new ModelAndView("redirect:/profile");
     }
+
 
 
 
@@ -99,16 +99,24 @@ public class ArticleController {
 
     @GetMapping("/articles-approve")
     public ModelAndView showUnapprovedArticles() {
-        List<Article> unapprovedArticles = articleService.findUnapprovedArticles();
+        List<ArticleDTO> unapprovedArticles = articleService.findByArticleStatus(ArticleStatus.PENDING);
         ModelAndView model = new ModelAndView("articles-approve");
         model.addObject("unapprovedArticles", unapprovedArticles);
         return model;
     }
 
+
     @PostMapping("/approve/{id}")
     public ModelAndView approveArticle(@PathVariable("id") Long articleId) {
-        Article article = articleService.findById(articleId);
+        ArticleDTO article = articleService.findById(articleId);
         articleService.approveArticle(article);
+        return new ModelAndView("redirect:/article/articles-approve");
+    }
+
+    @PostMapping("/reject/{id}")
+    public ModelAndView rejectArticle(@PathVariable("id") Long articleId, @RequestParam String rejectionReason) {
+        ArticleDTO article = articleService.findById(articleId);
+        articleService.rejectArticle(articleId, rejectionReason);
         return new ModelAndView("redirect:/article/articles-approve");
     }
 

@@ -1,8 +1,11 @@
 package com.example.CryptoTreasures.init;
 
+import com.example.CryptoTreasures.model.entity.Article;
 import com.example.CryptoTreasures.model.entity.Category;
 import com.example.CryptoTreasures.model.entity.User;
+import com.example.CryptoTreasures.model.enums.ArticleStatus;
 import com.example.CryptoTreasures.model.enums.Role;
+import com.example.CryptoTreasures.repository.ArticleRepository;
 import com.example.CryptoTreasures.repository.CategoryRepository;
 import com.example.CryptoTreasures.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -18,15 +22,23 @@ public class DataInitializer implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
     private final CategoryRepository categoryRepository;
 
+    private final ArticleRepository articleRepository;
 
-    public DataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, CategoryRepository categoryRepository) {
+
+    public DataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, CategoryRepository categoryRepository, ArticleRepository articleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.categoryRepository = categoryRepository;
+        this.articleRepository = articleRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+
+        List<User> users = userRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
+
         if(userRepository.findByRole(Role.ADMIN).isEmpty()){
             User admin = new User();
             admin.setUsername("admin");
@@ -58,6 +70,23 @@ public class DataInitializer implements CommandLineRunner {
                     user.setRole(Role.USER);
                 }
                 userRepository.save(user);
+            }
+        }
+
+        if(articleRepository.count() == 0) {
+            for (int i = 1; i <= 10; i++) {
+                Article article = new Article();
+                article.setTitle("Заглавие на статия " + i);
+                article.setContent("Съдържание на статия " + i);
+                article.setPublicationDate(LocalDate.now());
+                article.setAuthor(users.get(i % users.size())); // Разпределете статиите сред наличните потребители
+                article.setApproved(true);
+                article.setCategory(categories.get(i % categories.size())); // Разпределете статиите по категории
+                article.setThumbnailUrl("https://example.com/thumbnail" + i + ".jpg");
+                article.setArticleStatus(ArticleStatus.APPROVED); // Използвайте подходящия статус
+                article.setMessage("Съобщение за статия " + i);
+
+                articleRepository.save(article);
             }
         }
 

@@ -1,26 +1,61 @@
 package com.example.CryptoTreasures.model.dto;
 
 import com.example.CryptoTreasures.model.entity.Rating;
+import com.example.CryptoTreasures.model.enums.ArticleStatus;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class ArticleDTO {
     private Long id;
-
     private String title;
     private String content;
-
     private LocalDate publicationDate;
-    private String authorName;  // предполагам, че може би искате само името на автора, а не цялата информация
+    private String authorName;
     private Boolean isApproved;
-    private String categoryName;  // също така предполагам, че може би искате само името на категорията
+    private String categoryName;
+
+    private String thumbnailUrl;
     private List<CommentDTO> comments;
+    private ArticleStatus articleStatus;
+
+    private String message;
 
     public ArticleDTO(){
 
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ArticleStatus getArticleStatus() {
+        return articleStatus;
+    }
+
+    public void setArticleStatus(ArticleStatus articleStatus) {
+        this.articleStatus = articleStatus;
+    }
 
     public String getTitle() {
         return title;

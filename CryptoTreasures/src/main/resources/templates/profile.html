@@ -26,44 +26,6 @@
 
 
 
-
-
-    <div class="profile-container">
-        <h2>My profile</h2>
-
-        <div class="user-details">
-            <th:block sec:authorize="isAuthenticated()">
-                <h3>Username:
-                    <th:block sec:authentication="principal.username"></th:block>
-                </h3>
-            </th:block>
-
-        </div>
-
-        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
-        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
-
-        <div class="change-password">
-            <form th:action="@{/change-password}" th:method="post">
-                <label for="currentPassword">Current password:</label>
-                <input type="password" id="currentPassword" name="currentPassword" required>
-
-                <label for="newPassword">New Password:</label>
-                <input type="password" id="newPassword" name="newPassword" required>
-
-                <label for="confirmNewPassword">Confirm password:</label>
-                <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
-
-                <input type="submit" value="Change password">
-            </form>
-
-        </div>
-
-
-            </div>
-
-
-
     <div class="articles-container">
         <div class="article-card" th:each="article : ${articles}">
             <div class="thumbnail" th:style="'background-image: url(' + ${article.thumbnailUrl} + ')'"></div>
@@ -75,7 +37,14 @@
                     <h2 th:text="${article.title}"></h2>
                 </button>
 
+                <p th:text="${article.articleStatus}">Статус</p>
+                <p th:if="${article.articleStatus == T(com.example.CryptoTreasures.model.enums.ArticleStatus).REJECTED}" th:text="${article.message}">Причина за отказ</p>
+
             </div>
+            <form th:action="@{/article/delete-article/{articleId}}" method="post">
+                <input type="hidden" th:name="articleId" th:value="${article.id}" />
+                <button type="submit" class="delete-article-btn">Delete</button>
+            </form>
         </div>
     </div>
 

@@ -13,10 +13,14 @@
 <div th:if="${not #lists.isEmpty(unapprovedArticles)}">
     <div th:each="article : ${unapprovedArticles}">
         <div th:if="${!article.approved}">
-            <h2 th:text="${article.title}">Заглавие на статията</h2>
+            <h2 th:text="${article.title}">Title</h2>
             <p th:text="${article.content}">Кратко описание...</p>
             <form th:action="@{/article/approve/{id}(id=${article.id})}" th:method="post">
-                <input type="submit" value="Одобри">
+                <input type="submit" value="Approve">
+            </form>
+            <form th:action="@{/article/reject/{id}(id=${article.id})}" th:method="post">
+                <textarea name="rejectionReason" placeholder="Reason"></textarea>
+                <input type="submit" value="Reject">
             </form>
         </div>
     </div>

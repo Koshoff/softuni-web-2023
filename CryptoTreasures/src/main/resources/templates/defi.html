@@ -23,6 +23,12 @@
         </div>
         <button class="like-button" th:data-article-id="${article.id}">Like</button>
 
+        <form th:action="@{/post-comment/{articleId}(articleId=${article.id})}" th:method="post">
+            <input type="hidden" name="articleId" th:value="${article.id}"/>
+            <textarea name="comment"></textarea>
+            <button type="submit">Post</button>
+        </form>
+
     </div>
 
 </div>
@@ -43,13 +49,13 @@
 <div>
     <ul>
         <li th:if="${DeFiArticles.hasPrevious()}">
-            <a th:href="@{/defi?page=${articles.number - 1}}">Предишна</a>
+            <a th:href="@{/defi?page=${DeFiArticles.number - 1}}">Предишна</a>
         </li>
         <li th:each="pageNumber : ${#numbers.sequence(0, DeFiArticles.totalPages - 1)}">
-            <a th:href="@{/defi?page=${pageNumber}}" th:text="${pageNumber + 1}">1</a>
+            <a th:href="@{/defi(page=${pageNumber})}" th:text="${pageNumber + 1}">1</a>
         </li>
         <li th:if="${DeFiArticles.hasNext()}">
-            <a th:href="@{/defi?page=${DeFiArticles.number + 1}}">Следваща</a>
+            <a th:href="@{/defi(page=${DeFiArticles.number + 1})}">Следваща</a>
         </li>
     </ul>
 </div>
@@ -60,20 +66,11 @@
 <script th:src="@{/js/modal.js}"></script>
 <script th:src="@{/js/comments.js}"></script>
 
-<script>
-    document.querySelectorAll('.like-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const articleId = this.getAttribute('data-article-id');
-        // Изпращане на заявка към сървъра
-        fetch(`/like-article/${articleId}`, { method: 'POST' })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Article liked!');
-                }
-            });
-    });
-});
+<script type="text/javascript" th:src="@{/js/like-article.js}">
 </script>
+<script type="text/javascript" th:src="@{/js/leave-comment.js}">
+</script>
+
 
 </body>
 </html>

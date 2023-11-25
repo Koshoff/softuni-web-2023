@@ -1,5 +1,6 @@
 package com.example.CryptoTreasures.model.entity;
 
+import com.example.CryptoTreasures.model.enums.ArticleStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 
@@ -23,16 +24,32 @@ public class Article extends BaseEntity {
     private Boolean isApproved;
     @ManyToOne
     private Category category;
-    @OneToMany
-    private List<Comment> comments;
-    @OneToMany
-    private List<Rating> ratings;
+
     @Column(name="thumbnail_url")
     private String thumbnailUrl;
+    @Column(name="article_status")
+    private ArticleStatus articleStatus;
+    private String message;
 
     public Article() {
-        this.comments= new ArrayList<>();
-        this.ratings = new ArrayList<>();
+
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ArticleStatus getArticleStatus() {
+        return articleStatus;
+    }
+
+
+    public void setArticleStatus(ArticleStatus articleStatus) {
+        this.articleStatus = articleStatus;
     }
 
     public String getTitle() {
@@ -75,14 +92,6 @@ public class Article extends BaseEntity {
         this.category = category;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
     public Boolean getApproved() {
         return isApproved;
     }
@@ -103,11 +112,4 @@ public class Article extends BaseEntity {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
 }

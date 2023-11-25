@@ -1,5 +1,6 @@
 package com.example.CryptoTreasures.service.impl;
 
+import com.example.CryptoTreasures.model.dto.UserDTO;
 import com.example.CryptoTreasures.model.entity.User;
 import com.example.CryptoTreasures.model.ChangePasswordModel;
 import com.example.CryptoTreasures.model.UserRegistrationModel;
@@ -103,8 +104,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserDTO findByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+        return modelMapper.map(user, UserDTO.class);
+    }
+
+    @Override
+    public void promoteUsersToModerators() {
+        LocalDate oneWeekAgo = LocalDate.now().minusWeeks(1);
+        List<User> usersToPromote = userRepository.findByDateCreatedBefore(oneWeekAgo);
+        usersToPromote
+                .forEach(user -> {
+                    if(user.getRole().name().equals("USER")){
+                        user.setRole(Role.MODERATOR);
+                        userRepository.save(user);
+                    }
+                });
+
     }
 
 

@@ -4,6 +4,8 @@
 <head >
   <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 
+  <link rel="stylesheet" th:href="@{/css/categories.css}">
+
 </head>
 <header th:replace="~{fragments/navbar}">
 
@@ -12,8 +14,43 @@
 <body>
 
 
+<section>
 
-  <!-- info section -->
+  <div class="articles-container">
+    <div class="article-card" th:each="article : ${mostLikedArticles}">
+      <div class="thumbnail" th:style="'background-image: url(' + ${article.thumbnailUrl} + ')'"></div>
+      <div class="article-content">
+        <button class="article-title-btn"
+                th:data-article-title="${article.title}"
+                th:data-article-content="${article.content}"
+                onclick="openArticleModal(this)">
+          <h2 th:text="${article.title}"></h2>
+        </button>
+
+      </div>
+      <button class="like-button" th:data-article-id="${article.id}">Like</button>
+
+      <form th:action="@{/post-comment/{articleId}(articleId=${article.id})}" th:method="post">
+        <input type="hidden" name="articleId" th:value="${article.id}"/>
+        <textarea name="comment"></textarea>
+        <button type="submit">Post</button>
+      </form>
+
+    </div>
+
+  </div>
+
+  <div id="articleModal" class="modal">
+    <div class="modal-content">
+      <span id="closeBtn" class="close-button" onclick="closeArticleModal()">&times</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalContent"></p>
+    </div>
+  </div>
+</section>
+
+
+
 
   <section th:replace="~{fragments/selection}">
 
@@ -24,8 +61,14 @@
 
   <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
 
+<script type="text/javascript" th:src="@{/js/like-article.js}">
+</script>
+<script type="text/javascript" th:src="@{/js/leave-comment.js}">
+</script>
+<script type="text/javascript" th:src="@{/js/most-liked-articles.js}"></script>
 
-  </script>
+<script th:src="@{/js/modal.js}"></script>
+
 
 </body>
 

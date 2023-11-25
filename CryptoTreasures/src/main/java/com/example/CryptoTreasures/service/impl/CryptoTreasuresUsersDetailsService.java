@@ -19,9 +19,13 @@ public class CryptoTreasuresUsersDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new  UsernameNotFoundException("User" + username + "not found"));
+
+        /*
         if(user.getRole().name().equals("BANNED")){
             throw new DisabledException("Banned user");
         }
+
+         */
 
        return map(user);
 

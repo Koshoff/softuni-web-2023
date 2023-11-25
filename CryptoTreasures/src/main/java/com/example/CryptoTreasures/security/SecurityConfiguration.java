@@ -31,6 +31,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
                         //Даваме достъп до всики статични ресурси , css , js , images
@@ -54,6 +55,7 @@ public class SecurityConfiguration {
                             //Това са имената на полетата в хтмл
                             .usernameParameter("username")
                             .passwordParameter("password")
+                            .defaultSuccessUrl("/about")
                             .failureHandler(((request, response, exception) -> {
                                 String errorMessage;
                                 if (exception instanceof DisabledException) {
@@ -65,10 +67,8 @@ public class SecurityConfiguration {
                                 }
                                 request.getSession().setAttribute("loginError", errorMessage);
                                 response.sendRedirect("/user/login");
-                            }))
-                            //ако логина е успешен къде да ходи
-                            //чрез customAuthenticationSuccessHandler проверяваме дали потребителя каква роля има и го редиректваме
-                            .successHandler(customAuthenticationSuccessHandler());
+                            }));
+
 
 
                 }
