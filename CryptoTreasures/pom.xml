@@ -53,6 +53,12 @@
 			<version>3.2.0</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>6.1.1</version>
+		</dependency>
 
 
 

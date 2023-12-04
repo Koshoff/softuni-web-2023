@@ -1,8 +1,8 @@
-package com.example.CryptoTreasures.restcontrollers;
+package com.example.CryptoTreasures.rest_controllers;
 
 import com.example.CryptoTreasures.model.dto.ArticleDTO;
-import com.example.CryptoTreasures.model.entity.Article;
 import com.example.CryptoTreasures.service.ArticleService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,5 +22,11 @@ public class ArticleRestController {
     @GetMapping("/most-liked")
     public List<ArticleDTO> getMostLikedArticles() {
         return articleService.getMostLikedArticles();
+    }
+
+    @GetMapping("/latest-articles")
+    public ResponseEntity<List<ArticleDTO>> getLatestArticles() {
+        List<ArticleDTO> articles = articleService.getLatestArticles();
+        return ResponseEntity.ok(articles);
     }
 }

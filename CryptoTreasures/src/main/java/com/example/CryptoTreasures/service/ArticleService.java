@@ -14,25 +14,19 @@ import java.util.List;
 public interface ArticleService {
 
      void saveArticle(AddArticleModel addArticleModel);
-
-
      Page<ArticleDTO> getAllArticles(Pageable pageable);
-
      Page<ArticleDTO> getArticlesByCategory(String category, Pageable pageable);
-
      ArticleDTO findById(Long id);
-
      List<ArticleDTO> findUnapprovedArticles();
      List<ArticleDTO> findByArticleStatus(ArticleStatus articleStatus);
+     List<ArticleDTO> findByAuthor(UserDTO author);
+     List<ArticleDTO> getMostLikedArticles();
+     void deleteArticle(Long articleId);
 
+     //TODO : изнасяне на методите в ModeratorService
      void approveArticle(ArticleDTO article);
-
      void rejectArticle(Long articleId, String reasonMessage);
 
-     List<ArticleDTO> findByAuthor(UserDTO author);
 
-
-     List<ArticleDTO> getMostLikedArticles();
-
-     void deleteArticle(Long articleId);
+    List<ArticleDTO> getLatestArticles();
 }

@@ -36,7 +36,7 @@ public class ScheduledTasks {
     @Scheduled(fixedRate = 86400000)
     public void updateMostLikedArticles() {
         LOGGER.info("Actualize most liked articles");
-        cachedArticles = articleService.getMostLikedArticles();
+        this.cachedArticles = articleService.getMostLikedArticles();
     }
 
     public List<ArticleDTO> getCachedArticles() {

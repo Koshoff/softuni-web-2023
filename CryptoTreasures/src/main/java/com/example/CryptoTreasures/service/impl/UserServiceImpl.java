@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
@@ -38,6 +38,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(UserRegistrationModel userRegistrationModel) {
         User user = modelMapper.map(userRegistrationModel, User.class);
+        user.setPassword(passwordEncoder.encode(userRegistrationModel.getPassword()));
+        user.setDateCreated(LocalDate.now());
         userRepository.save(user);
 
         applicationEventPublisher.publishEvent(new UserRegisterEvent("UserService", userRegistrationModel.getUsername()));
@@ -58,17 +60,23 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-
-
     @Override
-    public List<User> findUserByRole(Role role) {
-        return userRepository.findByRole(role);
+    public List<UserDTO> findUserByRole(Role roleEnum) {
+
+        return userRepository.findByRole(roleEnum)
+                .stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> findAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public void banUser(Long id) {
@@ -124,6 +132,8 @@ public class UserServiceImpl implements UserService {
     }
 
 
+
+
     private  User map(UserRegistrationModel userRegistrationModel){
         User user = userRepository.findByUsernameOrEmail(userRegistrationModel.getUsername(), userRegistrationModel.getEmail()).orElse(null);
         if(user == null){
@@ -133,11 +143,13 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(userRegistrationModel.getPassword()));
             user.setDateCreated(LocalDate.now());
             user.setRole(Role.USER);
-            user.setActive(false);
+            user.setEnabled(false);
 
 
 
         }
         return user;
     }
+
+
 }

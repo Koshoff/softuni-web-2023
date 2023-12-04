@@ -5,6 +5,9 @@ import com.example.CryptoTreasures.model.entity.User;
 import com.example.CryptoTreasures.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -19,18 +22,20 @@ public class BanCheckInterceptor implements HandlerInterceptor {
         this.userService = userService;
     }
 
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Principal principal = request.getUserPrincipal();
-        if(principal != null) {
-            String username =request.getUserPrincipal().getName();
-            UserDTO user = userService.findByUsername(username);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            if(user != null && user.getRole().name().equals("BANNED")) {
-                response.sendRedirect("/banned");
+        if(authentication != null && authentication.
+                getAuthorities().contains(new SimpleGrantedAuthority("ROLE_BANNED")))
+        {
+            response.sendRedirect(request.getContextPath() +"/banned");
+
                 return false;
             }
-        }
         return true;
     }
+
+
 }

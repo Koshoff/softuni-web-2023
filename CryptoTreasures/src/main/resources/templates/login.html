@@ -5,13 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Form</title>
   <link rel="stylesheet" th:href="@{/css/login.css}">
+
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" />
+
+
+  <link rel="stylesheet" th:href="@{/css/createarticle.css}">
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+  <!-- fonts style -->
+  <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap}" rel="stylesheet">
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css}" />
+  <!-- font awesome style -->
+  <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+
 
 </head>
 <body>
 <div class="login-background">
-  <div th:if="${session.loginError != null}" th:text="${session.loginError}" class="alert alert-danger"></div>
   <form class="login-form" th:action="@{/user/login}" th:method="post">
 
     <h2>Login Here</h2>
@@ -25,6 +39,21 @@
     </div>
     <button type="submit">Log In</button>
   </form>
+  <div class="form-group">
+    <label for="rememberme" class="text-white fon-weight-bold">Remember me</label>
+    <input id="rememberme"
+           name="rememberme"
+           type="checkbox"
+           class="form-control"/>
+  </div>
+
+  <div th:if="${session.loginError != null}" th:text="${session.loginError}" class="alert alert-danger"></div>
+
 </div>
+
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+</script>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
 </body>
 </html>

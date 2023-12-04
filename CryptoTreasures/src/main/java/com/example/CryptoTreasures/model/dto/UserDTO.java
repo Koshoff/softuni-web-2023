@@ -1,15 +1,20 @@
 package com.example.CryptoTreasures.model.dto;
 
 import com.example.CryptoTreasures.model.enums.Role;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
 public class UserDTO {
 
     private Long id;
+
     private String username;
+
     private String email;
-    private Role role;
+    private Role roleEnum;
     private LocalDate dateCreated;
 
     private int articleCount;
@@ -43,11 +48,11 @@ public class UserDTO {
     }
 
     public Role getRole() {
-        return role;
+        return roleEnum;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRole(Role roleEnum) {
+        this.roleEnum = roleEnum;
     }
 
     public LocalDate getDateCreated() {

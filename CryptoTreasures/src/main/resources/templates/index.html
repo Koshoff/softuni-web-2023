@@ -2,9 +2,24 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head >
-  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+
 
   <link rel="stylesheet" th:href="@{/css/categories.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" />
+
+
+  <link rel="stylesheet" th:href="@{/css/createarticle.css}">
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+  <!-- fonts style -->
+  <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap}" rel="stylesheet">
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css}" />
+  <!-- font awesome style -->
+  <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+
 
 </head>
 <header th:replace="~{fragments/navbar}">
@@ -30,8 +45,8 @@
       </div>
       <button class="like-button" th:data-article-id="${article.id}">Like</button>
 
-      <form th:action="@{/post-comment/{articleId}(articleId=${article.id})}" th:method="post">
-        <input type="hidden" name="articleId" th:value="${article.id}"/>
+      <form id="commentForm">
+        <input type="hidden" id="articleId" name="articleId" th:value="${article.id}"/>
         <textarea name="comment"></textarea>
         <button type="submit">Post</button>
       </form>
@@ -57,7 +72,6 @@
   </section>
 
 
-  <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
 
   <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
 
@@ -68,7 +82,10 @@
 <script type="text/javascript" th:src="@{/js/most-liked-articles.js}"></script>
 
 <script th:src="@{/js/modal.js}"></script>
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+</script>
 
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
 
 </body>
 

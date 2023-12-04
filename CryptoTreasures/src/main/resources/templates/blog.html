@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blog</title>
+    <link rel="stylesheet" th:href="@{/css/blog-post.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/createarticle.css}">
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+    <!-- fonts style -->
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap}" rel="stylesheet">
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css}" />
+    <!-- font awesome style -->
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+</head>
+<body>
+
+<div class="blog-container">
+    <h1>Blog Posts</h1>
+    <div class="posts">
+        <div th:each="post : ${posts}" class="post">
+            <h2><a th:href="@{/blog/{id}(id=${post.id})}" th:text="${post.title}"></a></h2>
+            <p class="summary" th:text="${post.content}"></p>
+            <span class="post-date" th:text="'Date created '+ ${#temporals.format(post.dateCreated, 'dd-MM-yyyy')} ">Date Created</span>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+</script>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+</body>
+</html>

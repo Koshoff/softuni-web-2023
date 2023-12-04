@@ -2,15 +2,29 @@
 <html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/categories.css}">
+    <link rel="stylesheet" th:href="@{/css/defi.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" />
+
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+    <!-- fonts style -->
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap}" rel="stylesheet">
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css}" />
+    <!-- font awesome style -->
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+
     <title>DeFi Articles</title>
 </head>
 <header th:replace="~{fragments/navbar}">
 
 </header>
-<body>
+<body class="defi-articles">
 <div class="articles-container">
-    <div class="article-card" th:each="article : ${DeFiArticles}">
+    <div class="article-card" th:each="article : ${DeFiArticles.getContent()}" th:object="${article}">
         <div class="thumbnail" th:style="'background-image: url(' + ${article.thumbnailUrl} + ')'"></div>
         <div class="article-content">
             <button class="article-title-btn"
@@ -22,9 +36,12 @@
 
         </div>
         <button class="like-button" th:data-article-id="${article.id}">Like</button>
+        <div id="commentsContainer-${article.id}" class="comments-container"></div>
+        <button class="show-comments-btn" th:data-article-id="${article.id}">Show Comments</button>
 
-        <form th:action="@{/post-comment/{articleId}(articleId=${article.id})}" th:method="post">
-            <input type="hidden" name="articleId" th:value="${article.id}"/>
+        <form id="commentForm">
+            <input type="hidden" id="articleId" name="articleId" th:value="${article.id}"/>
+
             <textarea name="comment"></textarea>
             <button type="submit">Post</button>
         </form>
@@ -49,28 +66,34 @@
 <div>
     <ul>
         <li th:if="${DeFiArticles.hasPrevious()}">
-            <a th:href="@{/defi?page=${DeFiArticles.number - 1}}">Предишна</a>
+            <a th:href="@{/article/defi?page=${DeFiArticles.number - 1}}">Previous</a>
         </li>
         <li th:each="pageNumber : ${#numbers.sequence(0, DeFiArticles.totalPages - 1)}">
-            <a th:href="@{/defi(page=${pageNumber})}" th:text="${pageNumber + 1}">1</a>
+            <a th:href="@{/article/defi(page=${pageNumber})}" th:text="${pageNumber + 1}">1</a>
         </li>
         <li th:if="${DeFiArticles.hasNext()}">
-            <a th:href="@{/defi(page=${DeFiArticles.number + 1})}">Следваща</a>
+            <a th:href="@{/article/defi(page=${DeFiArticles.number + 1})}">Next</a>
         </li>
     </ul>
 </div>
-<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
 
-<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
+
 
 <script th:src="@{/js/modal.js}"></script>
 <script th:src="@{/js/comments.js}"></script>
 
 <script type="text/javascript" th:src="@{/js/like-article.js}">
 </script>
+
+<script type="text/javascript" th:src="@{/js/show-comments.js}"></script>
 <script type="text/javascript" th:src="@{/js/leave-comment.js}">
 </script>
 
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+</script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
 
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
 </body>
 </html>

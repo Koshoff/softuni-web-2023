@@ -7,6 +7,10 @@ import com.example.CryptoTreasures.model.entity.Article;
 import com.example.CryptoTreasures.model.entity.User;
 import com.example.CryptoTreasures.service.ArticleService;
 import com.example.CryptoTreasures.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView profile(Principal principal){
         ModelAndView modelAndView = new ModelAndView("profile");
         String username = principal.getName();
@@ -44,6 +49,7 @@ public class UserController {
     }
 
     @PostMapping("/change-password")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView changePassword(@ModelAttribute("changePasswordModel")ChangePasswordModel changePasswordModel
             , RedirectAttributes redirectAttributes, Authentication authentication){
         String loggedInUsername = authentication.getName();
@@ -58,9 +64,15 @@ public class UserController {
     }
 
     @GetMapping("/banned")
-    public ModelAndView bannedUsersEndPoint(){
+    public ModelAndView bannedUsersEndPoint(HttpServletRequest httpServletRequest){
+        HttpSession session = httpServletRequest.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return new ModelAndView("banned");
     }
+
+
 
 
 

@@ -15,7 +15,6 @@ public class Article extends BaseEntity {
     private String title;
     @Column(nullable = false)
     private String content;
-
     @Column(name="publication_date")
     private LocalDate publicationDate;
     @ManyToOne
@@ -24,10 +23,10 @@ public class Article extends BaseEntity {
     private Boolean isApproved;
     @ManyToOne
     private Category category;
-
     @Column(name="thumbnail_url")
     private String thumbnailUrl;
     @Column(name="article_status")
+    @Enumerated(EnumType.STRING)
     private ArticleStatus articleStatus;
     private String message;
 

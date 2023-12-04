@@ -1,22 +1,20 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector("form");
-    
+    const form = document.getElementById("commentForm");
+
     form.addEventListener("submit", function(event) {
         event.preventDefault();
 
         const formData = new FormData(form);
-        const content = formData.get("comment");
-
-        if (!content.trim()) {
-            alert("Please, leave a comment.");
-            return;
-        }
-
         const articleId = formData.get("articleId");
+        const comment = formData.get("comment");
+
+
 
         const data = {
-            content: content,
-            articleId: articleId
+            articleId: articleId,
+            content: comment,
+
+
 
         };
 
@@ -27,18 +25,15 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Comment posted successfully.");
-                form.reset(); // Ресетиране на формата след успешно изпращане
-            } else {
-                alert("Error while posting comment: " + data.message);
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
+            console.log('Comment posted successfully');
+            // Допълнителна логика при успешно изпращане
         })
         .catch(error => {
             console.error('Error:', error);
-            alert("Error while posting comment.");
         });
     });
 });

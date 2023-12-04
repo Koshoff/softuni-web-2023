@@ -1,20 +1,17 @@
 /* Основни стилове за страницата */
-body.sub_page {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2; /* сив фон */
-    color: #333; /* сив текст */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
 }
 
-.hero_area {
-    background-color: #ffa500; /* оранжев фон */
-    padding: 20px 0;
-    position: relative;
-}
-
-.header {
-    margin-bottom: 30px;
-    background-color: #333; /* тъмно сив фон */
-    color: #fff; /* бял текст */
+header {
+    background-color: #202020;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
 }
 
 .profile-container {
@@ -25,12 +22,6 @@ body.sub_page {
     box-shadow: 0 0 15px rgba(0,0,0,0.1); /* сянка около контейнера */
 }
 
-.profile-container h2 {
-    color: #ffa500; /* оранжев заглавен текст */
-    border-bottom: 2px solid #ffa500; /* оранжева черта под заглавието */
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
 
 .user-details, .change-password {
     margin-bottom: 20px;
@@ -68,11 +59,56 @@ input[type="submit"]:hover {
 }
 
 .alert-success {
-    background-color: #d4edda; /* светло зелен фон за успешните съобщения */
-    color: #155724; /* тъмно зелен текст за успешните съобщения */
+    background-color: #d4edda;
+    color: #155724;
 }
 
 .alert-danger {
-    background-color: #f8d7da; /* светло червен фон за грешки */
-    color: #721c24; /* тъмно червен текст за грешки */
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Основен стил за формата за промяна на парола */
+.password-change-container {
+    background-color: #1e1e1e; /* тъмно сив цвят */
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.password-change-container h3 {
+    color: #4caf50; /* зелен цвят за заглавието */
+    margin-bottom: 20px;
+}
+
+.password-change-container form {
+    max-width: 400px;
+    margin: auto;
+}
+
+/* Стилове за текстовите полета */
+.password-change-container input[type=password] {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Стил за бутона за изпращане */
+.password-change-container button[type=submit] {
+    background-color: #4caf50; /* зелен цвят */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.password-change-container button[type=submit]:hover {
+    background-color: #43a047; /* по-тъмен зелен при навеждане */
 }

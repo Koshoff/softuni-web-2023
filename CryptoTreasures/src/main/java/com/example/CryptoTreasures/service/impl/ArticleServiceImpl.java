@@ -42,7 +42,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void saveArticle(AddArticleModel addArticleModel) {
-        User author = userRepository.findByUsername(SecurityUtils.getCurrentUsername()).orElseThrow();
+        User author = userRepository.findByUsername(SecurityUtils.getCurrentUsername())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "User with username" + SecurityUtils.getCurrentUsername() + "not found"));
 
        Article article =new Article();
        article.setApproved(false);
@@ -73,8 +75,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDTO findById(Long id) {
-        return modelMapper.map(articleRepository.findById(id).orElse(null), ArticleDTO.class);
+    public ArticleDTO findById(Long articleId) {
+        Article article = articleRepository.findById(articleId).orElseThrow(() -> new EntityNotFoundException(
+                "Article with id" + articleId + "not found"));
+        return modelMapper.map(article, ArticleDTO.class);
     }
 
     public List<ArticleDTO> findUnapprovedArticles() {
@@ -103,10 +107,16 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void rejectArticle(Long articleId, String reasonMessage) {
-        Article article = articleRepository.findById(articleId).orElseThrow();
+        Article article = articleRepository.findById(articleId).orElseThrow(() -> new EntityNotFoundException(
+                "Article with id" + articleId + "not found"));
         article.setArticleStatus(ArticleStatus.REJECTED);
         article.setMessage(reasonMessage);
         articleRepository.save(article);
+    }
+
+    @Override
+    public List<ArticleDTO> getLatestArticles() {
+        return null;
     }
 
 
@@ -137,4 +147,5 @@ public class ArticleServiceImpl implements ArticleService {
             throw new EntityNotFoundException("Article ID " + articleId + " not found.");
         }
     }
+
 }

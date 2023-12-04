@@ -1,4 +1,4 @@
-package com.example.CryptoTreasures.restcontrollers;
+package com.example.CryptoTreasures.rest_controllers;
 
 import com.example.CryptoTreasures.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;

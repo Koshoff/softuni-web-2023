@@ -1,77 +1,59 @@
-/* Навигационно меню */
-
-.header_section {
-    background-color: #808080; /* сив цвят за фона на хедъра */
-    padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
 .navbar {
-    padding: 0 20px;
+    background-color: #1e1e1e;
+    border-bottom: 2px solid #4caf50;
 }
 
-.navbar-brand span {
-    font-size: 24px;
-    color: #f8f9fa;
-    font-weight: 600;
+ .navbar-brand {
+    color: #4caf50;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
-.nav-item {
-    margin: 0 10px;
+ .navbar-brand:hover,
+ .navbar-brand:focus {
+    color: #3e8e41;
 }
 
-.navbar ul {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
+.nav-item .nav-link {
+    color: #d0d0d0;
+    margin-right: 15px;
 }
 
-.navbar ul li {
-    margin-right: 10px;
-}
-
-.nav-link {
-    font-size: 15px;
-    color: #f8f9fa;
-    padding: 8px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.nav-link:hover,
-.nav-link:focus {
-    background-color: #1a75ff; /* син цвят при ховър и фокус */
+.nav-item .nav-link:hover,
+.nav-item .nav-link:focus {
     color: #ffffff;
 }
 
-.nav-item.active .nav-link,
-.nav-item .nav-link.active {
-    background-color: #ff9933; /* оранжев цвят при активен линк */
-    color: #ffffff;
+
+.nav-item .btn-link {
+    color: #4caf50;
 }
 
-.dropdown-menu {
-    border: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #808080; /* сив цвят за фона на падащото меню */
-    margin-top: 5px;
+.btn-link:hover,
+.btn-link:focus {
+    color: #3e8e41;
 }
 
-.dropdown-item:hover {
-    background-color: #1a75ff; /* син цвят при ховър на елемент от падащото меню */
+
+ .nav_search-btn {
+    background-color: #333;
     color: #ffffff;
+    border: 1px solid #4caf50;
 }
 
-.btn {
-    background-color: #ff9933; /* оранжев цвят за фона на бутоните */
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
+.nav_search-btn:hover,
+.nav_search-btn:focus {
+    background-color: #4caf50;
+    border-color: #3e8e41;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        background-color: #1e1e1e;
+    }
+
+    .nav-item {
+        border-top: 1px solid #333;
+    }
 }

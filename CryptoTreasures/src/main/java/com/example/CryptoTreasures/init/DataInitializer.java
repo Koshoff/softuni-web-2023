@@ -40,6 +40,8 @@ public class DataInitializer implements CommandLineRunner {
         List<Category> categories = categoryRepository.findAll();
 
         if(userRepository.findByRole(Role.ADMIN).isEmpty()){
+
+
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("Softuni2023"));
@@ -65,8 +67,11 @@ public class DataInitializer implements CommandLineRunner {
                 user.setDateCreated(LocalDate.now());
 
                 if (i == 4 || i == 7) {
+
+
                     user.setRole(Role.BANNED);
                 } else {
+
                     user.setRole(Role.USER);
                 }
                 userRepository.save(user);
@@ -89,6 +94,7 @@ public class DataInitializer implements CommandLineRunner {
                 articleRepository.save(article);
             }
         }
+
 
     }
 }

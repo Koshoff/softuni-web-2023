@@ -3,9 +3,14 @@ package com.example.CryptoTreasures.service.impl;
 import com.example.CryptoTreasures.model.entity.User;
 import com.example.CryptoTreasures.repository.UserRepository;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CryptoTreasuresUsersDetailsService implements UserDetailsService {
 
@@ -20,18 +25,12 @@ public class CryptoTreasuresUsersDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new  UsernameNotFoundException("User" + username + "not found"));
 
-        /*
-        if(user.getRole().name().equals("BANNED")){
-            throw new DisabledException("Banned user");
-        }
-
-         */
-
        return map(user);
 
     }
 
     private UserDetails map(User user){
+
 
       return  org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())

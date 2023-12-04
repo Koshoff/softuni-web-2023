@@ -18,8 +18,18 @@ public class Comment extends BaseEntity {
     private Article article;
     @ManyToOne
     private User commentator;
+    @ManyToOne
+    private Post post;
 
     public Comment() {
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public User getCommentator() {

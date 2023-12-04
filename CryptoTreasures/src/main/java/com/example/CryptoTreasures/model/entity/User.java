@@ -2,7 +2,6 @@ package com.example.CryptoTreasures.model.entity;
 
 import com.example.CryptoTreasures.model.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -25,21 +24,37 @@ public class User extends BaseEntity {
     private LocalDate dateCreated;
     @OneToMany(mappedBy = "author")
     private Set<Article> articles;
-
-    private Boolean isActive;
-
-
+    @OneToMany(mappedBy = "author")
+    private Set<Post> posts;
+    private Boolean enabled;
 
     public User() {
         this.articles = new HashSet<>();
+        this.posts = new HashSet<>();
     }
 
-    public Boolean getActive() {
-        return isActive;
+    public Set<Post> getPosts() {
+        return posts;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getUsername() {
@@ -66,13 +81,6 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public LocalDate getDateCreated() {
         return dateCreated;

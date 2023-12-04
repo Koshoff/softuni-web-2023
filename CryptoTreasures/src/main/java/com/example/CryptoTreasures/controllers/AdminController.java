@@ -3,6 +3,7 @@ package com.example.CryptoTreasures.controllers;
 import com.example.CryptoTreasures.model.enums.Role;
 import com.example.CryptoTreasures.service.CategoryService;
 import com.example.CryptoTreasures.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/admin")
 public class AdminController {
 

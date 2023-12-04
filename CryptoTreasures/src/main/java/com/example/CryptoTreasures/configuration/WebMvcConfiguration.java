@@ -16,6 +16,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(banCheckInterceptor)
-                .addPathPatterns("/login");
+                .excludePathPatterns("/user/login", "/login", "/banned");
     }
 }

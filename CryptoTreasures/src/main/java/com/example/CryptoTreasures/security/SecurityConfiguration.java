@@ -3,11 +3,11 @@ package com.example.CryptoTreasures.security;
 import com.example.CryptoTreasures.model.enums.Role;
 import com.example.CryptoTreasures.repository.UserRepository;
 import com.example.CryptoTreasures.service.impl.CryptoTreasuresUsersDetailsService;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfiguration {
 
     @Bean
@@ -35,9 +36,12 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
                         //Даваме достъп до всики статични ресурси , css , js , images
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         //Даваме достъп до home page, login , register
-                        .requestMatchers("/", "/user/login", "/user/register", "/user/login-error").permitAll()
+                        .requestMatchers("/", "/user/login",
+                                "/user/register",
+                                "/user/login-error",
+                                "/error/**").permitAll()
                         .requestMatchers("/banned", "/user/login").hasRole(Role.BANNED.name())
                         .requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
                         //Всички други секции на сайта ще искат логване
@@ -55,7 +59,7 @@ public class SecurityConfiguration {
                             //Това са имената на полетата в хтмл
                             .usernameParameter("username")
                             .passwordParameter("password")
-                            .defaultSuccessUrl("/about")
+                            .successHandler(customAuthenticationSuccessHandler())
                             .failureHandler(((request, response, exception) -> {
                                 String errorMessage;
                                 if (exception instanceof DisabledException) {

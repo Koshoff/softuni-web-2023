@@ -1,0 +1,26 @@
+body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative; /* Задаване на релативно позициониране на body */
+        }
+
+        header {
+            position: absolute; /* Задаване на абсолютно позициониране на навигационната лента */
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .ghost {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 100% от височината на екрана */
+        }
+
+        .ghost img {
+            max-width: 100%; /* Снимката ще бъде максимално голяма, но няма да се разтегля извън границите на екрана */
+            height: auto; /* За да запазите съотношението на страните на изображението */
+        }

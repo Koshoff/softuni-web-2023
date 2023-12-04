@@ -1,7 +1,7 @@
 package com.example.CryptoTreasures.model.dto;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -9,14 +9,17 @@ public class CommentDTO {
 
     private Long id;
     @NotBlank
+    @Size(min=5, max=200)
     private String content;
     private Long articleId;
+
     private Long authorId;
     private String authorName;
     private LocalDate createDate;
 
     public CommentDTO() {
     }
+
 
     public Long getId() {
         return id;

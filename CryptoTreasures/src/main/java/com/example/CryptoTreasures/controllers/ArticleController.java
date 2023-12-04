@@ -1,6 +1,7 @@
 package com.example.CryptoTreasures.controllers;
 
 import com.example.CryptoTreasures.model.dto.ArticleDTO;
+import com.example.CryptoTreasures.model.dto.CommentDTO;
 import com.example.CryptoTreasures.model.entity.Article;
 import com.example.CryptoTreasures.model.entity.Category;
 import com.example.CryptoTreasures.model.AddArticleModel;
@@ -14,6 +15,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +46,7 @@ public class ArticleController {
     public ModelAndView loadDefiArticles(@PageableDefault(size=2, sort = "id")Pageable pageable) {
         Page<ArticleDTO> defiArticles = articleService.getArticlesByCategory("DeFi", pageable);
         ModelAndView model = new ModelAndView("defi");
+
         model.addObject("DeFiArticles", defiArticles);
         return model;
     }
@@ -68,6 +71,7 @@ public class ArticleController {
 
 
     @GetMapping("/create-article")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView create(@ModelAttribute("addArticleDTO") AddArticleModel addArticleModel){
         List<Category> categories = categoryService.findAll();
         ModelAndView model = new ModelAndView("create-article");
@@ -76,6 +80,7 @@ public class ArticleController {
     }
 
     @PostMapping("/create-article")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView create(@ModelAttribute("addArticleDTO") @Valid AddArticleModel addArticleModel
                                , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
@@ -85,7 +90,7 @@ public class ArticleController {
 
         return new ModelAndView("about");
     }
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/delete-article/{articleId}")
     public ModelAndView deleteArticle(@RequestParam("articleId") Long articleId) {
         articleService.deleteArticle(articleId);
@@ -98,6 +103,7 @@ public class ArticleController {
 //Трябва да се направи само Moderator да има достъп до тези методи.
 
     @GetMapping("/articles-approve")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView showUnapprovedArticles() {
         List<ArticleDTO> unapprovedArticles = articleService.findByArticleStatus(ArticleStatus.PENDING);
         ModelAndView model = new ModelAndView("articles-approve");
@@ -107,6 +113,7 @@ public class ArticleController {
 
 
     @PostMapping("/approve/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView approveArticle(@PathVariable("id") Long articleId) {
         ArticleDTO article = articleService.findById(articleId);
         articleService.approveArticle(article);
@@ -114,6 +121,7 @@ public class ArticleController {
     }
 
     @PostMapping("/reject/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView rejectArticle(@PathVariable("id") Long articleId, @RequestParam String rejectionReason) {
         ArticleDTO article = articleService.findById(articleId);
         articleService.rejectArticle(articleId, rejectionReason);

@@ -2,27 +2,42 @@ package com.example.CryptoTreasures.model.dto;
 
 import com.example.CryptoTreasures.model.entity.Rating;
 import com.example.CryptoTreasures.model.enums.ArticleStatus;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class ArticleDTO {
     private Long id;
+    @NotBlank
+    @Size(min=5, max=100)
     private String title;
+    @NotBlank
+    @Size(min=50, max=5000)
     private String content;
     private LocalDate publicationDate;
     private String authorName;
     private Boolean isApproved;
     private String categoryName;
-
     private String thumbnailUrl;
     private List<CommentDTO> comments;
     private ArticleStatus articleStatus;
-
     private String message;
+
+    private Integer ratingCount;
+
 
     public ArticleDTO(){
 
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
     }
 
     public String getMessage() {

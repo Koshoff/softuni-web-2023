@@ -1,0 +1,119 @@
+/* Стил за контейнерите на статии в страницата с DeFi статии */
+.defi-articles .articles-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #242424;
+    border-radius: 8px;
+}
+
+.defi-articles .article-card {
+    background-color: #2e2e2e;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.defi-articles .thumbnail {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+}
+
+.defi-articles .article-content {
+    padding: 15px;
+}
+
+.defi-articles .article-title-btn {
+    background: none;
+    border: none;
+    text-align: left;
+}
+
+.defi-articles .article-title-btn h2 {
+    font-size: 18px;
+    color: #4caf50;
+    margin: 0;
+}
+
+.defi-articles .like-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0 0 0 8px; /* Заоблен само в долния ляв ъгъл */
+    cursor: pointer;
+}
+
+.defi-articles form {
+    padding: 15px;
+}
+
+.defi-articles textarea {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.defi-articles form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Стилове на пагинацията за DeFi статии */
+.defi-articles .articles-container ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.defi-articles .articles-container li {
+    margin: 0 5px;
+}
+
+.defi-articles .articles-container a {
+    text-decoration: none;
+    color: #333;
+}
+
+.defi-articles .articles-container a:hover {
+    text-decoration: underline;
+}
+
+/* Отговорни медийни заявки за DeFi статии */
+@media (max-width: 768px) {
+    .defi-articles .articles-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Модален стил за DeFi статии */
+.defi-articles .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.defi-articles .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
