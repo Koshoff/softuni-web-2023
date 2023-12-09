@@ -1,21 +1,18 @@
 package com.example.CryptoTreasures.controllers;
 
-import com.example.CryptoTreasures.model.ChangePasswordModel;
+import com.example.CryptoTreasures.model.dto.ChangePasswordDTO;
 import com.example.CryptoTreasures.model.dto.ArticleDTO;
 import com.example.CryptoTreasures.model.dto.UserDTO;
 import com.example.CryptoTreasures.model.entity.Article;
-import com.example.CryptoTreasures.model.entity.User;
+import com.example.CryptoTreasures.model.enums.ArticleStatus;
 import com.example.CryptoTreasures.service.ArticleService;
 import com.example.CryptoTreasures.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -48,12 +45,24 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping("/profile/edit-article/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView editArticle(@PathVariable("id") Long id, @RequestParam String  content) {
+        ArticleDTO article = articleService.findById(id);
+        if(article != null) {
+            article.setContent(content);
+            article.setArticleStatus(ArticleStatus.PENDING);
+            articleService.updateArticle(article);
+        }
+        return new ModelAndView("profile");
+    }
+
     @PostMapping("/change-password")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView changePassword(@ModelAttribute("changePasswordModel")ChangePasswordModel changePasswordModel
+    public ModelAndView changePassword(@ModelAttribute("changePasswordDTO") ChangePasswordDTO changePasswordDTO
             , RedirectAttributes redirectAttributes, Authentication authentication){
         String loggedInUsername = authentication.getName();
-        boolean success = userService.changePassword(changePasswordModel);
+        boolean success = userService.changePassword(changePasswordDTO);
         if(success){
             redirectAttributes.addFlashAttribute("successMessage", "Password was changed successfully!");
         }else{

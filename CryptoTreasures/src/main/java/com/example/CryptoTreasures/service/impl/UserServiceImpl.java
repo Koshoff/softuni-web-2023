@@ -2,15 +2,17 @@ package com.example.CryptoTreasures.service.impl;
 
 import com.example.CryptoTreasures.model.dto.UserDTO;
 import com.example.CryptoTreasures.model.entity.User;
-import com.example.CryptoTreasures.model.ChangePasswordModel;
+import com.example.CryptoTreasures.model.dto.ChangePasswordDTO;
 import com.example.CryptoTreasures.model.UserRegistrationModel;
 import com.example.CryptoTreasures.model.enums.Role;
 import com.example.CryptoTreasures.model.events.UserRegisterEvent;
 import com.example.CryptoTreasures.repository.UserRepository;
 import com.example.CryptoTreasures.service.UserService;
 import com.example.CryptoTreasures.util.SecurityUtils;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,18 +42,19 @@ public class UserServiceImpl implements UserService {
         User user = modelMapper.map(userRegistrationModel, User.class);
         user.setPassword(passwordEncoder.encode(userRegistrationModel.getPassword()));
         user.setDateCreated(LocalDate.now());
+        user.setRole(Role.USER);
+        user.setEmail(userRegistrationModel.getEmail());
         userRepository.save(user);
-
-        applicationEventPublisher.publishEvent(new UserRegisterEvent("UserService", userRegistrationModel.getUsername()));
     }
 
     @Override
-    public boolean changePassword(ChangePasswordModel changePasswordModel) {
+    @PreAuthorize("isAuthenticated()")
+    public boolean changePassword(ChangePasswordDTO changePasswordDTO) {
         User user = userRepository.findByUsername(SecurityUtils.getCurrentUsername()).orElse(null);
         if(user != null){
-            if(passwordEncoder.matches(changePasswordModel.getCurrentPassword(), user.getPassword())){
-                if(changePasswordModel.getNewPassword().equals(changePasswordModel.getConfirmNewPassword())){
-                    user.setPassword(passwordEncoder.encode(changePasswordModel.getNewPassword()));
+            if(passwordEncoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())){
+                if(changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmNewPassword())){
+                    user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
                     userRepository.save(user);
                     return true;
                 }
@@ -62,7 +65,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> findUserByRole(Role roleEnum) {
-
         return userRepository.findByRole(roleEnum)
                 .stream()
                 .map(user -> modelMapper.map(user, UserDTO.class))
@@ -79,6 +81,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void banUser(Long id) {
         userRepository.findById(id).ifPresent(user -> {
             user.setRole(Role.BANNED);
@@ -88,6 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void unbanUser(Long id) {
         userRepository.findById(id).ifPresent(user -> {
             user.setRole(Role.USER);
@@ -96,6 +100,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void makeModerator(Long id) {
         userRepository.findById(id).ifPresent(user ->{
             user.setRole(Role.MODERATOR);
@@ -104,6 +109,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void removeModerator(Long id) {
         userRepository.findById(id).ifPresent(user ->{
             user.setRole(Role.USER);
@@ -113,10 +119,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findByUsername(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow();
+        User user = userRepository.findByUsername(username).orElseThrow((() -> new EntityNotFoundException(
+                "User with username: " + username + "not found")));
         return modelMapper.map(user, UserDTO.class);
     }
-
     @Override
     public void promoteUsersToModerators() {
         LocalDate oneWeekAgo = LocalDate.now().minusWeeks(1);
@@ -128,12 +134,12 @@ public class UserServiceImpl implements UserService {
                         userRepository.save(user);
                     }
                 });
-
     }
 
-
-
-
+    @Override
+    public boolean isUsernameOrEmailTaken(String username, String email) {
+        return userRepository.existsByUsernameOrEmail(username, email);
+    }
     private  User map(UserRegistrationModel userRegistrationModel){
         User user = userRepository.findByUsernameOrEmail(userRegistrationModel.getUsername(), userRegistrationModel.getEmail()).orElse(null);
         if(user == null){
@@ -144,12 +150,7 @@ public class UserServiceImpl implements UserService {
             user.setDateCreated(LocalDate.now());
             user.setRole(Role.USER);
             user.setEnabled(false);
-
-
-
         }
         return user;
     }
-
-
 }

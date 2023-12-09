@@ -14,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -41,6 +42,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void saveArticle(AddArticleModel addArticleModel) {
         User author = userRepository.findByUsername(SecurityUtils.getCurrentUsername())
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -98,14 +100,17 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void approveArticle(ArticleDTO articleDTO) {
-        Article article = modelMapper.map(articleDTO, Article.class);
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public void approveArticle(Long articleId) {
+        Article article = articleRepository.findById(articleId).orElseThrow(() -> new EntityNotFoundException(
+                "Article with id" + articleId + "not found"));
         article.setArticleStatus(ArticleStatus.APPROVED);
         article.setApproved(true);
         articleRepository.save(article);
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public void rejectArticle(Long articleId, String reasonMessage) {
         Article article = articleRepository.findById(articleId).orElseThrow(() -> new EntityNotFoundException(
                 "Article with id" + articleId + "not found"));
@@ -115,9 +120,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDTO> getLatestArticles() {
-        return null;
+    @PreAuthorize("isAuthenticated()")
+    public void updateArticle(ArticleDTO articleDTO) {
+        Article article = modelMapper.map(articleDTO, Article.class);
+        articleRepository.save(article);
     }
+
 
 
     @Override
@@ -129,15 +137,9 @@ public class ArticleServiceImpl implements ArticleService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<ArticleDTO> getMostLikedArticles() {
-        return articleRepository.findMostLikedArticlesAscending()
-                .stream()
-                .map(article -> modelMapper.map(article, ArticleDTO.class))
-                .collect(Collectors.toList());
-    }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void deleteArticle(Long articleId) {
         if(articleRepository.existsById(articleId)){
             articleRepository.deleteById(articleId);
@@ -146,6 +148,12 @@ public class ArticleServiceImpl implements ArticleService {
         else{
             throw new EntityNotFoundException("Article ID " + articleId + " not found.");
         }
+    }
+
+    @Override
+    public Page<ArticleDTO> findByArticleStatusAndCategoryName(ArticleStatus articleStatus, String categoryName, Pageable pageable) {
+        Page<Article> articles = articleRepository.findByArticleStatusAndCategoryName(articleStatus, categoryName, pageable);
+        return articles.map(article -> modelMapper.map(article, ArticleDTO.class));
     }
 
 }

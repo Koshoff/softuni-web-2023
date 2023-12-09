@@ -1,59 +1,69 @@
 .navbar {
-    background-color: #1e1e1e;
-    border-bottom: 2px solid #4caf50;
+    background: linear-gradient(to right, #2c3e50, #34495e); /* Тъмен градиент */
+        padding: 10px 20px;
+        color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
- .navbar-brand {
-    color: #4caf50;
+.navbar .navbar-brand {
+    color: white;
     font-size: 1.5em;
     font-weight: bold;
+    text-decoration: none;
 }
 
- .navbar-brand:hover,
- .navbar-brand:focus {
-    color: #3e8e41;
+.navbar .navbar-brand:hover {
+    color: #ecf0f1;
 }
 
-.nav-item .nav-link {
-    color: #d0d0d0;
-    margin-right: 15px;
+.navbar .navbar-nav .nav-item .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.nav-item .nav-link:hover,
-.nav-item .nav-link:focus {
-    color: #ffffff;
+.navbar .navbar-nav .nav-item .nav-link:hover {
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    color: #ecf0f1;
 }
 
-
-.nav-item .btn-link {
-    color: #4caf50;
+/* Responsive toggle button */
+.navbar-toggler {
+    border: none;
+    background-color: transparent;
 }
 
-.btn-link:hover,
-.btn-link:focus {
-    color: #3e8e41;
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
 }
 
-
- .nav_search-btn {
-    background-color: #333;
-    color: #ffffff;
-    border: 1px solid #4caf50;
+/* Dropdown menu styles */
+.dropdown-menu {
+    background: rgba(255,255,255,0.9);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.nav_search-btn:hover,
-.nav_search-btn:focus {
-    background-color: #4caf50;
-    border-color: #3e8e41;
+.dropdown-item {
+    color: #34495e;
 }
 
+.dropdown-item:hover {
+    background-color: #3498db;
+    color: white;
+}
 
+/* Responsive styles */
 @media (max-width: 992px) {
     .navbar-collapse {
-        background-color: #1e1e1e;
+        background: linear-gradient(to right, #3498db, #9b59b6);
     }
 
-    .nav-item {
-        border-top: 1px solid #333;
+    .navbar-nav {
+        text-align: center;
     }
 }

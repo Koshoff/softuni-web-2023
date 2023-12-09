@@ -1,6 +1,6 @@
-package com.example.CryptoTreasures.model;
+package com.example.CryptoTreasures.model.dto;
 
-public class ChangePasswordModel {
+public class ChangePasswordDTO {
 
     private String currentPassword;
     private String newPassword;

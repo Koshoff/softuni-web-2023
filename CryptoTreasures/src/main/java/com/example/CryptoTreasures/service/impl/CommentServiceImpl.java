@@ -4,14 +4,13 @@ import com.example.CryptoTreasures.model.dto.CommentDTO;
 import com.example.CryptoTreasures.model.dto.OpinionDTO;
 import com.example.CryptoTreasures.model.entity.Article;
 import com.example.CryptoTreasures.model.entity.Comment;
-import com.example.CryptoTreasures.model.entity.Post;
 import com.example.CryptoTreasures.model.entity.User;
 import com.example.CryptoTreasures.repository.ArticleRepository;
 import com.example.CryptoTreasures.repository.CommentRepository;
-import com.example.CryptoTreasures.repository.PostRepository;
 import com.example.CryptoTreasures.repository.UserRepository;
 import com.example.CryptoTreasures.service.CommentService;
 import com.example.CryptoTreasures.util.SecurityUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,19 +24,20 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
 
-    private final PostRepository postRepository;
 
 
-    public CommentServiceImpl(CommentRepository commentRepository, UserRepository userRepository, ArticleRepository articleRepository, PostRepository postRepository) {
+
+    public CommentServiceImpl(CommentRepository commentRepository, UserRepository userRepository, ArticleRepository articleRepository) {
         this.commentRepository = commentRepository;
         this.userRepository = userRepository;
         this.articleRepository = articleRepository;
 
-        this.postRepository = postRepository;
+
     }
 
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void saveComment(CommentDTO commentDTO) {
         User user = userRepository.findByUsername(SecurityUtils.getCurrentUsername()).orElse(null);
         Article article = articleRepository.findById(commentDTO.getArticleId()).orElse(null);
@@ -50,17 +50,7 @@ public class CommentServiceImpl implements CommentService {
 
     }
 
-    @Override
-    public void savePostComment(OpinionDTO opinionDTO) {
-        Post post = postRepository.findById(opinionDTO.getId()).orElse(null);
-        User user = userRepository.findByUsername(SecurityUtils.getCurrentUsername()).orElse(null);
-        Comment comment = new Comment();
-        comment.setPost(post);
-        comment.setPublicationDate(LocalDate.now());
-        comment.setContent(opinionDTO.getContent());
-        comment.setCommentator(user);
-        commentRepository.save(comment);
-    }
+
 
     @Override
     public List<CommentDTO> getCommentsByArticleId(Long articleId) {
@@ -75,6 +65,7 @@ public class CommentServiceImpl implements CommentService {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setArticleId(comment.getArticle().getId());
         commentDTO.setId(comment.getId());
+        commentDTO.setAuthorName(comment.getCommentator().getUsername());
         commentDTO.setAuthorId(comment.getCommentator().getId());
         commentDTO.setContent(comment.getContent());
         commentDTO.setCreateDate(comment.getPublicationDate());

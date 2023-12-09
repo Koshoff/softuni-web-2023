@@ -1,0 +1,27 @@
+.img-box {
+ position: fixed; /* Използвайте fixed за да го направите на цял екран */
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     z-index: -1; /
+}
+
+.img-box img {
+     width: 100%;
+        height: 100%;
+        object-fit: cover;
+}
+
+body {
+    background-color: #1a1a1a; /* Тъмен фон */
+    color: #ffffff; /* Бял текст */
+    font-family: 'Arial', sans-serif; /* Чист и четим шрифт */
+    line-height: 1.6; /* Добро междуредие */
+}
+
+p {
+    max-width: 800px; /* Ограничаване на ширината на параграфа */
+    margin: 0 auto; /* Центриране на текста */
+    padding: 10px; /* Малко отстояние около текста */
+}

@@ -4,13 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Form</title>
+  <link rel="stylesheet" th:href="@{/css/base.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
 
   <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" />
 
-
-  <link rel="stylesheet" th:href="@{/css/createarticle.css}">
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
   <!-- fonts style -->
@@ -37,23 +36,31 @@
       <label>Password</label>
       <input type="password" name="password" placeholder="Password">
     </div>
+    <div class="form-group">
+      <input id="rememberme" name="rememberme" type="checkbox" class="form-control"/>
+      <label for="rememberme" class="text-white fon-weight-bold">Remember me</label>
+      <div th:if="${session.loginError != null}" th:text="${session.loginError}" class="alert alert-danger"></div>
+
+    </div>
     <button type="submit">Log In</button>
   </form>
-  <div class="form-group">
-    <label for="rememberme" class="text-white fon-weight-bold">Remember me</label>
-    <input id="rememberme"
-           name="rememberme"
-           type="checkbox"
-           class="form-control"/>
-  </div>
 
-  <div th:if="${session.loginError != null}" th:text="${session.loginError}" class="alert alert-danger"></div>
+
+
 
 </div>
 
-<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
-</script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
 
 <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<!-- popper js -->
+<script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<!-- bootstrap js -->
+<!-- owl slider -->
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+</script>
+<!-- custom js -->
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
 </body>
 </html>

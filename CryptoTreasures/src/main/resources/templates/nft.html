@@ -2,11 +2,13 @@
 <html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/categories.css}">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/categories.css}" />
 
 
-    <link rel="stylesheet" th:href="@{/css/createarticle.css}">
+
+
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
     <!-- fonts style -->
@@ -24,7 +26,8 @@
 
 </header>
 <body>
-<div class="article-card" th:each="article : ${NFTArticles}">
+<div class="articles-container" th:each="article : ${NFTArticles}">
+    <div class="article-card" th:each="article : ${NFTArticles.getContent()}" th:object="${article}">
     <div class="thumbnail" th:style="'background-image: url(' + ${article.thumbnailUrl} + ')'"></div>
     <div class="article-content">
         <button class="article-title-btn"
@@ -33,10 +36,27 @@
                 onclick="openArticleModal(this)">
             <h2 th:text="${article.title}"></h2>
         </button>
-        <p th:text="${article.content.substring(0,3)} + '....'"></p>
+        <p th:text="${article.content.substring(0,50)} + '....'"></p>
+        <div id="commentsContainer-${article.id}" class="comments-container"></div>
+        <button class="like-button" th:data-article-id="${article.id}">Like</button>
+
+        <button class="show-comments-btn" th:data-article-id="${article.id}">Show Comments</button>
+
+        <form id="commentForm-${article.id}">
+            <input type="hidden" id="articleId" name="articleId" th:value="${article.id}"/>
+
+            <textarea name="comment"></textarea>
+            <button type="submit">Post</button>
+        </form>
+        <div th:id="'commentsContainer-' + ${article.id}" class="comments-container"></div>
 
     </div>
 </div>
+</div>
+
+
+
+
 
 
 
@@ -53,22 +73,39 @@
 <div>
     <ul>
         <li th:if="${NFTArticles.hasPrevious()}">
-            <a th:href="@{/NFTArticles?page=${articles.number - 1}}">Previous</a>
+            <a th:href="@{/article/nft(page=${NFTArticles.number - 1})}">Previous</a>
         </li>
         <li th:each="pageNumber : ${#numbers.sequence(0, NFTArticles.totalPages - 1)}">
-            <a th:href="@{/NFTArticles?page=${pageNumber}}" th:text="${pageNumber + 1}">1</a>
+            <a th:href="@{/article/nft(page=${pageNumber})}" th:text="${pageNumber + 1}">1</a>
         </li>
         <li th:if="${NFTArticles.hasNext()}">
-            <a th:href="@{/NFTArticles?page=${NFTArticles.number + 1}}">Next</a>
+            <a th:href="@{/article/nft(page=${NFTArticles.number + 1})}">Next</a>
         </li>
     </ul>
 </div>
 
-<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+
+
+<script th:src="@{/js/comments.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/like-article.js}">
 </script>
-<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/modal.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/show-comments.js}"></script>
+<script type="text/javascript" th:src="@{/js/leave-comment.js}">
+</script>
 
 <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
-<script th:src="@{/js/modal.js}"></script>
+<!-- popper js -->
+<script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<!-- bootstrap js -->
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<!-- owl slider -->
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+</script>
+<!-- custom js -->
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
 </body>
 </html>

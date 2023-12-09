@@ -1,0 +1,33 @@
+.crypto-container {
+    display: flex; /* Активира flexbox за подреждане на елементите в ред */
+    align-items: center; /* Центрира елементите вертикално в контейнера */
+    justify-content: start; /* Подравнява елементите в началото на контейнера */
+    margin: 20px 0;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.crypto-image {
+    width: 200px; /* Фиксирана ширина на изображението */
+    height: auto; /* Автоматична височина за запазване на пропорциите на изображението */
+    margin-left: 20px; /* Отстъп от лявата страна */
+    border-radius: 8px; /* Заоблени ръбове на изображението */
+}
+
+.crypto-description {
+    padding: 20px;
+    max-width: 600px;
+}
+
+.crypto-description h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.crypto-description p {
+    color: #666;
+    line-height: 1.6;
+    text-align: justify;
+}

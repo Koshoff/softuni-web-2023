@@ -19,6 +19,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     Page<Article> findByCategoryName(String name, Pageable pageable);
 
+    Page<Article> findByArticleStatusAndCategoryName(ArticleStatus articleStatus, String categoryName, Pageable pageable);
+
+
     List<Article> findByIsApprovedFalse();
 
     List<Article> findByArticleStatus(ArticleStatus articleStatus);
@@ -26,8 +29,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByContentContainingIgnoreCase(String keyword);
 
     List<Article> findByAuthor(User author);
-    @Query("SELECT r.article, COUNT(r) as likesCount FROM Rating r WHERE r.rating = true GROUP BY r.article ORDER BY likesCount ASC")
-    List<Article> findMostLikedArticlesAscending();
 
 
 

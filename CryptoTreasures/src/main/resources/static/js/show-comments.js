@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Намиране на всички бутони за показване на коментари
+
     document.querySelectorAll('.show-comments-btn').forEach(function (button) {
         button.addEventListener('click', function () {
-            // Вземане на article ID от data атрибута
+
             var articleId = this.getAttribute('data-article-id');
             loadComments(articleId);
         });
@@ -12,31 +12,50 @@ document.addEventListener('DOMContentLoaded', function () {
 function loadComments(articleId) {
     fetch(`/comments?articleId=${articleId}`)
         .then(response => {
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
         .then(comments => {
+          console.log("Comments received:", comments);
             const commentsContainer = document.getElementById(`commentsContainer-${articleId}`);
+            console.log("Comments container found:", commentsContainer);
             if (!commentsContainer) {
                 throw new Error(`Коментарният контейнер не беше намерен за articleId: ${articleId}`);
             }
-            commentsContainer.innerHTML = ''; // Изчистване на съдържанието
+            console.log('vsichko6');
+            commentsContainer.innerHTML = '';
+            comments.forEach(comment => {
 
-            // Проверете дали има коментари
-            if (comments.length === 0) {
-                commentsContainer.innerHTML = '<p>Няма коментари за тази статия.</p>';
-            } else {
-                comments.forEach(comment => {
-                    const commentElement = document.createElement('div');
-                    commentElement.className = 'comment';
-                    commentElement.textContent = comment.content; // Примерно, зависи от структурата на вашия CommentDTO
-                    commentsContainer.appendChild(commentElement);
-                });
-            }
+                            const commentElement = document.createElement('div');
+                            commentElement.className = 'comment';
+
+                            const userNameElement = document.createElement('span');
+                            userNameElement.className = 'comment-user-name';
+                            userNameElement.textContent = comment.authorName + ': ';
+
+                            commentElement.appendChild(userNameElement);
+
+
+                                const contentElement = document.createElement('span');
+                                contentElement.textContent = comment.content;
+                                commentElement.appendChild(contentElement);
+                                commentsContainer.appendChild(commentElement);
+
+
+                        });
+
         })
         .catch(error => {
             console.error('Error fetching comments:', error);
         });
 }
+
+document.querySelectorAll('.show-comments-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const articleId = button.getAttribute('data-article-id');
+        loadComments(articleId);
+    });
+});

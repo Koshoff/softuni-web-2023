@@ -1,0 +1,61 @@
+/* Основни стилове */
+body {
+    font-family: Arial, sans-serif; /* Примерен шрифт */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Светъл фон, подходящ за четене */
+    color: #333; /* Основен цвят на текста */
+}
+
+/* Хедър, футър и навигация */
+header, footer, nav {
+    padding: 1em;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+/* Стилове на контейнер */
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Адаптивни медийни заявки */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+}
+
+/* Стилове на бутони */
+button {
+    background-color: #008CBA; /* Цвят на бутоните */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005f73; /* Цвят при навеждане */
+}
+
+/* Стилове на бутони при фокус */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 3px 2px #005f73;
+}
+
+.error {
+    color: #e74c3c; /* Червен цвят за грешки */
+    font-size: 0.85em;
+}
+
+/* Стилове за полетата на формата */
+.form-control:invalid {
+    border-color: #e74c3c; /* Червен цвят при грешка */
+}

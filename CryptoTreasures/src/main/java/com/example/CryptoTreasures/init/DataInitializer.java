@@ -84,9 +84,11 @@ public class DataInitializer implements CommandLineRunner {
                 article.setTitle("Заглавие на статия " + i);
                 article.setContent("Съдържание на статия " + i);
                 article.setPublicationDate(LocalDate.now());
-                article.setAuthor(users.get(i % users.size())); // Разпределете статиите сред наличните потребители
+
+
                 article.setApproved(true);
-                article.setCategory(categories.get(i % categories.size())); // Разпределете статиите по категории
+
+                // Разпределете статиите по категории
                 article.setThumbnailUrl("https://example.com/thumbnail" + i + ".jpg");
                 article.setArticleStatus(ArticleStatus.APPROVED); // Използвайте подходящия статус
                 article.setMessage("Съобщение за статия " + i);

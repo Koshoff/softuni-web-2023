@@ -24,21 +24,12 @@ public class User extends BaseEntity {
     private LocalDate dateCreated;
     @OneToMany(mappedBy = "author")
     private Set<Article> articles;
-    @OneToMany(mappedBy = "author")
-    private Set<Post> posts;
+
     private Boolean enabled;
 
     public User() {
         this.articles = new HashSet<>();
-        this.posts = new HashSet<>();
-    }
 
-    public Set<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
     }
 
     public Role getRole() {

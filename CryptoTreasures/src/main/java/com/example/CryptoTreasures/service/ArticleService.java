@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ArticleService {
 
@@ -20,13 +21,17 @@ public interface ArticleService {
      List<ArticleDTO> findUnapprovedArticles();
      List<ArticleDTO> findByArticleStatus(ArticleStatus articleStatus);
      List<ArticleDTO> findByAuthor(UserDTO author);
-     List<ArticleDTO> getMostLikedArticles();
+
      void deleteArticle(Long articleId);
 
+     Page<ArticleDTO> findByArticleStatusAndCategoryName(ArticleStatus articleStatus, String categoryName, Pageable pageable);
+
+
+
      //TODO : изнасяне на методите в ModeratorService
-     void approveArticle(ArticleDTO article);
+     void approveArticle(Long articleId);
      void rejectArticle(Long articleId, String reasonMessage);
 
+     void updateArticle(ArticleDTO articleDTO);
 
-    List<ArticleDTO> getLatestArticles();
 }

@@ -1,58 +1,38 @@
-.specific-container form {
-    background-color: #2a2a2a; /* Тъмносив фон */
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px auto;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+.specific-container {
+    max-width: 800px; /* Максимална ширина на контейнера */
+    margin: 0 auto; /* Центриране на формата */
+    padding: 20px; /* Вътрешен отстъп */
+    background-color: #f8f8f8; /* Цвят на фона */
+    border-radius: 10px; /* Заоблени ъгли */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Сянка за дълбочина */
 }
 
 .specific-container label {
-    color: #d0d0d0;
-    display: block;
-    margin-bottom: 5px;
+    font-weight: bold; /* По-дебел шрифт за етикетите */
+    margin-bottom: 5px; /* Отстъп отдолу за етикетите */
+    display: block; /* Етикетите да са на нов ред */
 }
 
-.specific-container input[type=text],
+.specific-container input[type="text"],
+.specific-container input[type="url"],
 .specific-container textarea,
 .specific-container select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    border: 1px solid #3e3e3e;
-    background-color: #333;
-    color: #fff;
+    width: 100%; /* Ширина да заема 100% от родителя си */
+    padding: 10px; /* Вътрешен отстъп */
+    margin-bottom: 15px; /* Отстъп отдолу */
+    border-radius: 5px; /* Заоблени ъгли */
+    border: 1px solid #ddd; /* Граница на полетата */
 }
 
-.specific-container input[type=file] {
-    border: none;
-    margin-bottom: 20px;
+.specific-container input[type="submit"] {
+    background-color: #007bff; /* Син цвят на бутона */
+    color: white; /* Бял текст */
+    padding: 10px 15px; /* Отстъпи на бутона */
+    border: none; /* Без граница */
+    border-radius: 5px; /* Заоблени ъгли */
+    cursor: pointer; /* Курсорът да е pointer */
 }
 
-.specific-container input[type=submit] {
-    background-color: #4caf50; /* Зелен цвят за бутона */
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.specific-container input[type=submit]:hover {
-    background-color: #43a047; /* По-тъмен зелен при навеждане */
-}
-
-/* Адаптивен дизайн за мобилни устройства */
-@media (max-width: 768px) {
-    .specific-container form {
-        margin: 20px;
-    }
-
-/* Адаптивен дизайн за мобилни устройства */
-@media (max-width: 768px) {
-    form {
-        margin: 20px;
-    }
+.specific-container input[type="submit"]:hover {
+    background-color: #0056b3; /* По-тъмен син цвят при hover */
 }

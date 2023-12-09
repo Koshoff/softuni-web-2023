@@ -10,7 +10,6 @@ public interface CommentService {
 
    void saveComment(CommentDTO commentDTO);
 
-   void savePostComment(OpinionDTO opinionDTO);
 
     List<CommentDTO> getCommentsByArticleId(Long articleId);
 }

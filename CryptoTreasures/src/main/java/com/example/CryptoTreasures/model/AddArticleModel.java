@@ -7,10 +7,10 @@ import jakarta.validation.constraints.Size;
 
 public class AddArticleModel {
     @NotBlank
-    @Size(min=10, max=150)
+    @Size(min=10, max=150, message = "The title must be at least 10 characters")
     private String title;
     @NotBlank
-    @Size(min=50, max = 2000)
+    @Size(min=150, max = 2000, message = "The content must be at least 150 characters")
     private String content;
     @NotNull
     private Category category;

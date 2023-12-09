@@ -1,0 +1,116 @@
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.article-details {
+    margin-bottom: 15px;
+}
+
+.article-title-btn {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.article-title {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.article-content {
+    font-size: 1em;
+    color: #666;
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.approve-form, .reject-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rejection-reason {
+    width: 70%;
+    margin-right: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-approve {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-reject {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-make-crypto-card {
+    background-color: #007bff;
+    color: white;
+    display: block;
+    margin: 20px auto;
+}
+
+.no-articles-message {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.make-crypto-card-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.btn-make-crypto-card {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Зелен цвят за бутона */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-make-crypto-card:hover {
+    background-color: #367C39; /* По-тъмен зелен цвят при навеждане */
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 80%;
+    }
+}

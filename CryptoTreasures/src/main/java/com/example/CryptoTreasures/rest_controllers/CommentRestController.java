@@ -33,15 +33,5 @@ public class CommentRestController {
         return ResponseEntity.ok(comments);
     }
 
-    @PostMapping("/blog/{postId}/leave-opinion")
-    @CrossOrigin(allowedHeaders = "Content-Type")
-    public ResponseEntity<OpinionDTO> postOpinion(@RequestBody OpinionDTO opinionDTO, @PathVariable("postId") Long postId) {
-        try{
-            commentService.savePostComment(opinionDTO);
-            return ResponseEntity.ok().build();
-        }catch (Exception e) {
 
-            return ResponseEntity.badRequest().build();
-        }
-    }
 }

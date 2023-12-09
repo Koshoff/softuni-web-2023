@@ -5,10 +5,14 @@
 
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
-    <link rel="stylesheet" th:href="@{/css/create-article.css}">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/create-article.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/article-approve.css}" />
 
-    <link rel="stylesheet" th:href="@{/css/createarticle.css}">
+
+
+
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
     <!-- fonts style -->
@@ -32,19 +36,23 @@
 <body class="sub_page">
 
 <div class="specific-container">
-    <form th:action="@{/article/create-article}" th:method="post"  enctype="multipart/form-data">
+    <form th:action="@{/article/create-article}" th:method="post"  enctype="multipart/form-data" th:object="${addArticleDTO}">
         <!-- Заглавие -->
         <label for="title">Title:</label>
+        <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+        <br><br>
         <input type="text" id="title" name="title" required>
         <br><br>
 
         <!-- Съдържание -->
         <label for="content">Content:</label>
+        <div class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content Error</div>
+        <br><br>
         <textarea id="content" name="content" rows="4" cols="50" required></textarea>
         <br><br>
 
-        <label for="thumbnail">Thumbnail Image:</label>
-        <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required>
+        <label for="thumbnailUrl">Image url:</label>
+        <input type="url" id="thumbnailUrl" name="thumbnailUrl" accept="image/*" required>
         <br><br>
 
         <!-- Категория -->
@@ -63,10 +71,17 @@
 </div>
 
 
-    <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
-    </script>
-
-    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<!-- popper js -->
+<script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<!-- bootstrap js -->
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<!-- owl slider -->
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+</script>
+<!-- custom js -->
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
 
 </body>
 

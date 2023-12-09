@@ -48,9 +48,21 @@ public class UserAuthentication {
     public ModelAndView register(@ModelAttribute("userRegistrationModel") @Valid UserRegistrationModel userRegistrationModel,
                                  BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return new ModelAndView("redirect:/register");
+            ModelAndView modelAndView = new ModelAndView("register");
         }
-        userService.register(userRegistrationModel);
-        return  new ModelAndView("redirect:/login");
+        if(userService.isUsernameOrEmailTaken(userRegistrationModel.getUsername(), userRegistrationModel.getEmail())){
+            bindingResult.rejectValue("username", "error.user", "Username or email is already taken");
+            return new ModelAndView("register");
+        }
+        if (!userRegistrationModel.getPassword().equals(userRegistrationModel.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "error.userRegistrationModel", "Passwords do not match.");
+            return new ModelAndView("register");
+        }
+
+            userService.register(userRegistrationModel);
+            return  new ModelAndView("redirect:/login");
+
+
+
     }
 }

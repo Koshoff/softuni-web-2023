@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/crypto-card.css}" />
+
+
+
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap}" rel="stylesheet">
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css}" />
+    <!-- font awesome style -->
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+
+    <meta charset="UTF-8">
+    <title>Create Crypto Card</title>
+    <!-- Вашият CSS и други ресурси тук -->
+</head>
+<header th:replace="~{fragments/navbar}">
+
+</header>
+<body>
+<div class="crypto-card-form">
+    <form th:action="@{/moderator/make-crypto-card}" th:method="post">
+        <div class="form-group-crypto-card">
+            <label for="name">Currency Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group-crypto-card">
+            <label for="information">Content:</label>
+            <textarea id="information" name="information" required></textarea>
+        </div>
+
+        <div class="form-group-crypto-card">
+            <label for="imageUrl">Image URL:</label>
+            <input type="url" id="imageUrl" name="imageUrl" required>
+        </div>
+
+        <button type="submit">Create Crypto Card</button>
+    </form>
+</div>
+
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<!-- popper js -->
+<script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<!-- bootstrap js -->
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<!-- owl slider -->
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}">
+</script>
+<!-- custom js -->
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
+</html>

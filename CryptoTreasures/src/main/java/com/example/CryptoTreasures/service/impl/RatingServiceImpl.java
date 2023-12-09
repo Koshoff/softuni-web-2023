@@ -7,6 +7,7 @@ import com.example.CryptoTreasures.repository.ArticleRepository;
 import com.example.CryptoTreasures.repository.RatingRepository;
 import com.example.CryptoTreasures.repository.UserRepository;
 import com.example.CryptoTreasures.service.RatingService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +24,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void likeArticle(Long articleId, String username) {
         User user = userRepository.findByUsername(username).orElse(null);
         Article article = articleRepository.findById(articleId).orElse(null);

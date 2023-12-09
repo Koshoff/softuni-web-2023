@@ -13,7 +13,8 @@ import java.util.List;
 public class Article extends BaseEntity {
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 65535)
+    @Lob
     private String content;
     @Column(name="publication_date")
     private LocalDate publicationDate;

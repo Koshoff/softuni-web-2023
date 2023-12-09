@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                                 "/user/register",
                                 "/user/login-error",
                                 "/error/**").permitAll()
+                        .requestMatchers("/crypto-card-details").authenticated()
                         .requestMatchers("/banned", "/user/login").hasRole(Role.BANNED.name())
                         .requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
                         //Всички други секции на сайта ще искат логване

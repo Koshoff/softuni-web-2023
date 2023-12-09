@@ -1,0 +1,32 @@
+.card-details {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.card-details .card-title {
+    color: #3498db;
+}
+
+.card-details .card-image {
+     max-width: 50%;
+        height: auto;
+        display: block;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-details .card-info {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto;
+}
